@@ -1,0 +1,22 @@
+.main {
+    background-color: #0B1220;
+}
+
+section[data-testid="stSidebar"]{
+    background:#111827;
+}
+
+div[data-testid="stMetric"]{
+    background:#1F2937;
+    border-radius:14px;
+    padding:15px;
+    border:1px solid #334155;
+}
+
+.block-container{
+    padding-top:1.2rem;
+}
+
+hr{
+    border-color:#334155;
+}
