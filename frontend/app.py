@@ -12,6 +12,8 @@ from components.sidebar import show_sidebar
 from components.cards import metric_cards, get_weather_data
 from components.city_status import city_status
 from components.recommendation import recommendation_panel
+from components.map_view import show_map
+from components.risk_score import risk_score_panel
 
 st.set_page_config(
     page_title="CivicMind AI",
@@ -50,6 +52,7 @@ st.divider()
 metric_cards(selected_city)
 
 weather = get_weather_data(selected_city)
+risk_score_panel(weather)
 
 left, right = st.columns([2, 1])
 
@@ -61,14 +64,14 @@ with right:
 
 st.divider()
 
-st.subheader(f"📍 {selected_page}")
+show_map(selected_city)
 
-st.caption(
-    f"Currently Monitoring: {selected_city}"
-)
+st.divider()
+
+st.subheader(selected_page)
 
 st.info(
-    "🚀 Live Decision Intelligence Platform"
+    "🚀 Live Decision Intelligence Dashboard"
 )
 
 st.caption(
