@@ -5,11 +5,13 @@ ROOT = Path(__file__).resolve().parent.parent
 
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+
 import streamlit as st
 
 from components.sidebar import show_sidebar
-from components.cards import metric_cards
-
+from components.cards import metric_cards, get_weather_data
+from components.city_status import city_status
+from components.recommendation import recommendation_panel
 
 st.set_page_config(
     page_title="CivicMind AI",
@@ -20,14 +22,17 @@ st.set_page_config(
 
 
 def load_css():
-    try:
-        with open("frontend/styles/style.css") as f:
+
+    css = ROOT / "frontend" / "styles" / "style.css"
+
+    if css.exists():
+
+        with open(css, "r", encoding="utf-8") as f:
+
             st.markdown(
                 f"<style>{f.read()}</style>",
                 unsafe_allow_html=True
             )
-    except:
-        pass
 
 
 load_css()
@@ -44,24 +49,27 @@ st.divider()
 
 metric_cards(selected_city)
 
+weather = get_weather_data(selected_city)
+
+left, right = st.columns([2, 1])
+
+with left:
+    city_status(selected_city, weather)
+
+with right:
+    recommendation_panel(selected_city)
+
 st.divider()
 
 st.subheader(f"📍 {selected_page}")
 
-st.caption(f"Currently Monitoring : {selected_city}")
-
-st.write("""
-Welcome to **CivicMind AI**
-
-AI Powered Decision Intelligence Platform
-for Governments, Communities and Citizens.
-""")
-
-st.info(
-    "🚀 Live datasets, analytics, AI recommendations and forecasting will appear here."
+st.caption(
+    f"Currently Monitoring: {selected_city}"
 )
 
-st.divider()
+st.info(
+    "🚀 Live Decision Intelligence Platform"
+)
 
 st.caption(
     "© 2026 CivicMind AI | Google Cloud APAC Hackathon"
