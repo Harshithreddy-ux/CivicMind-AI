@@ -1,9 +1,16 @@
-import streamlit as st
-from components.sidebar import show_sidebar
+import sys
+from pathlib import Path
 
-# -----------------------------
-# Page Configuration
-# -----------------------------
+ROOT = Path(__file__).resolve().parent.parent
+
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+import streamlit as st
+
+from components.sidebar import show_sidebar
+from components.cards import metric_cards
+
+
 st.set_page_config(
     page_title="CivicMind AI",
     page_icon="🏙️",
@@ -11,26 +18,22 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# -----------------------------
-# Load Custom CSS
-# -----------------------------
-def local_css(file_name):
-    with open(file_name) as f:
-        st.markdown(
-            f"<style>{f.read()}</style>",
-            unsafe_allow_html=True
-        )
 
-local_css("frontend/styles/style.css")
+def load_css():
+    try:
+        with open("frontend/styles/style.css") as f:
+            st.markdown(
+                f"<style>{f.read()}</style>",
+                unsafe_allow_html=True
+            )
+    except:
+        pass
 
-# -----------------------------
-# Sidebar
-# -----------------------------
-selected = show_sidebar()
 
-# -----------------------------
-# Header
-# -----------------------------
+load_css()
+
+selected_page, selected_city = show_sidebar()
+
 st.title("🏙️ CivicMind AI")
 
 st.caption(
@@ -39,32 +42,27 @@ st.caption(
 
 st.divider()
 
-# -----------------------------
-# Current Page
-# -----------------------------
-st.subheader(f"📍 {selected}")
+metric_cards(selected_city)
 
-st.write(
-    "Welcome to CivicMind AI. This platform helps governments, "
-    "communities, organizations, and citizens make better decisions "
-    "using real-world data and Artificial Intelligence."
+st.divider()
+
+st.subheader(f"📍 {selected_page}")
+
+st.caption(f"Currently Monitoring : {selected_city}")
+
+st.write("""
+Welcome to **CivicMind AI**
+
+AI Powered Decision Intelligence Platform
+for Governments, Communities and Citizens.
+""")
+
+st.info(
+    "🚀 Live datasets, analytics, AI recommendations and forecasting will appear here."
 )
 
 st.divider()
 
-# -----------------------------
-# Temporary Placeholder
-# -----------------------------
-st.info(
-    "🚀 Dashboard components, live datasets, AI agents, and analytics "
-    "will be integrated in the next development phase."
-)
-
-# -----------------------------
-# Footer
-# -----------------------------
-st.markdown("---")
-
 st.caption(
-    "© 2026 CivicMind AI | Google Cloud APAC Hackathon | Decision Intelligence Platform"
+    "© 2026 CivicMind AI | Google Cloud APAC Hackathon"
 )

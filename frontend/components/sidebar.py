@@ -1,10 +1,26 @@
-from streamlit_option_menu import option_menu
 import streamlit as st
+from streamlit_option_menu import option_menu
+
+from config.cities import CITIES
+
 
 def show_sidebar():
+
     with st.sidebar:
-        selected = option_menu(
-            menu_title="CivicMind AI",
+
+        st.title("🏙 CivicMind AI")
+
+        st.markdown("---")
+
+        selected_city = st.selectbox(
+            "📍 Select City",
+            list(CITIES.keys())
+        )
+
+        st.markdown("---")
+
+        selected_page = option_menu(
+            menu_title=None,
             options=[
                 "Dashboard",
                 "Decision Center",
@@ -23,8 +39,7 @@ def show_sidebar():
                 "file-earmark-text",
                 "gear"
             ],
-            menu_icon="building",
-            default_index=0,
+            default_index=0
         )
 
-    return selected
+    return selected_page, selected_city
