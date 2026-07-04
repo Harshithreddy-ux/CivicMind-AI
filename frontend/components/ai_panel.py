@@ -1,6 +1,7 @@
 import json
 import requests
 import streamlit as st
+from components.cards import BACKEND
 
 def show_ai_panel(weather, aqi, city, question=None):
     st.markdown(
@@ -47,7 +48,7 @@ details[open] summary {
     
     try:
         with requests.post(
-            "http://127.0.0.1:8000/ai/stream",
+            f"{BACKEND}/ai/stream",
             json={
                 "city": city,
                 "weather": weather or {},

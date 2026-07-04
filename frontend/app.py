@@ -26,9 +26,12 @@ from utils.dataset_service import load_all_datasets
 from components.branding import get_logo_src
 import threading
 import json
+import os
 
 logo_src = get_logo_src()
 LOGO_PATH = str(Path(__file__).resolve().parent.parent / "assets" / "logo.svg")
+
+BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
 
 # Thread-safe WebSocket Background Alert Listener
 def start_alert_listener():
@@ -36,7 +39,8 @@ def start_alert_listener():
     
     async def ws_client():
         import websockets
-        uri = "ws://127.0.0.1:8000/ws/alerts"
+        ws_url = BACKEND_URL.replace("http://", "ws://").replace("https://", "wss://")
+        uri = f"{ws_url}/ws/alerts"
         while True:
             try:
                 async with websockets.connect(uri) as websocket:
@@ -83,7 +87,7 @@ def load_city_context(city: str):
     weather = get_weather_data(city)
     aqi = None
     try:
-        response = requests.get(f"http://127.0.0.1:8000/aqi?city={city}", timeout=5)
+        response = requests.get(f"{BACKEND_URL}/aqi?city={city}", timeout=5)
         if response.status_code == 200:
             aqi = response.json()
     except Exception:

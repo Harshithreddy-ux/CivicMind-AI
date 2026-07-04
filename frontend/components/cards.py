@@ -2,7 +2,8 @@ import requests
 import streamlit as st
 
 
-BACKEND = "http://127.0.0.1:8000"
+import os
+BACKEND = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
 
 
 # ======================================================

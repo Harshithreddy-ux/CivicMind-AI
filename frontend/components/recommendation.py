@@ -1,13 +1,13 @@
 import streamlit as st
 import requests
-
+from components.cards import BACKEND
 
 def get_recommendation(city):
 
     try:
 
         response = requests.get(
-            f"http://127.0.0.1:8000/recommendation?city={city}",
+            f"{BACKEND}/recommendation?city={city}",
             timeout=5
         )
 
