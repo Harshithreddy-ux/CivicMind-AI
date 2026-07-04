@@ -61,38 +61,23 @@ Unlike conventional dashboards, CivicMind AI follows a **Multi-Agent Architectur
 
 ---
 
-# 🏗 Architecture
+# 🏗 System Architecture
 
-```text
-                    User
-                      │
-                      ▼
-             FastAPI API Gateway
-                      │
-                      ▼
-             Supervisor Agent
-                      │
-         ┌────────────┴────────────┐
-         ▼                         ▼
- Coordinator                 Web/RAG Router
-         │
- ┌───────┼───────────────────────────────────┐
- ▼       ▼        ▼       ▼       ▼          ▼
+The high-level system architecture of CivicMind AI is detailed below, highlighting the unified layers from frontend Streamlit views, through the FastAPI coordinator and domain agent orchestration, down to the regional databases and GCP infrastructure.
 
-Weather AQI Crime Flood Hospital Population GIS Traffic
- Agent Agent Agent Agent Agent Agent Agent Agent
+<p align="center">
+  <img src="assets/system_architecture.png" alt="CivicMind AI System Architecture" width="900"/>
+</p>
 
-         │
-         ▼
+---
 
-Decision Engine
+# 🔄 Process Workflow
 
-         │
+Below is the dynamic workflow flowchart demonstrating how a user's operational request flows through the Multi-Agent orchestrator, gets mapped to parallel domain-expert agents, and is synthesized via Gemini 2.5 Flash and retrieval models to output executive plans.
 
-         ▼
-
-Enterprise Dashboard
-```
+<p align="center">
+  <img src="assets/workflow_chart.png" alt="CivicMind AI Process Workflow Flowchart" width="800"/>
+</p>
 
 ---
 
