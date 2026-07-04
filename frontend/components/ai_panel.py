@@ -94,8 +94,54 @@ details[open] summary {
                                 report = payload.get("data", {})
                         except json.JSONDecodeError:
                             continue
-    except Exception as e:
-        status_placeholder.error(f"Error connecting to AI Orchestrator: {e}")
+    except Exception:
+        # Fallback to direct Python service call (in-process)
+        try:
+            import asyncio
+            from backend.agents.coordinator import CoordinatorAgent
+            
+            coordinator = CoordinatorAgent()
+            query = question if question else f"Analyze {city} considering weather and AQI."
+            
+            async def run_direct():
+                nonlocal report
+                async for chunk in coordinator.process_query_stream(query, location=city):
+                    try:
+                        payload = json.loads(chunk)
+                        if "agent" in payload:
+                            agents_status[payload["agent"]] = payload["status"]
+                            checklist_items = []
+                            for agent, status in agents_status.items():
+                                if status == "done":
+                                    checklist_items.append(f"<span style='color:#00E5FF;'>[✓] {agent}</span>")
+                                elif status == "error":
+                                    checklist_items.append(f"<span style='color:#FF5D73;'>[✗] {agent}</span>")
+                                else:
+                                    checklist_items.append(f"<span style='color:#A5B6D6;'>[⏳] {agent}</span>")
+                                    
+                            checklist_html = f"""
+                            <div style='font-size:0.8rem; line-height:1.6;'>
+                                <div style='color:#00FFFF; font-weight:600; margin-bottom:6px;'>Thinking...</div>
+                                <div style='display:flex; flex-wrap:wrap; gap:8px 12px; margin-bottom:8px;'>
+                                    {" | ".join(checklist_items)}
+                                </div>
+                                <div style='color:#A5B6D6; font-style:italic;'>-> Synthesizing Final Recommendation</div>
+                            </div>
+                            """
+                            status_placeholder.markdown(checklist_html, unsafe_allow_html=True)
+                        elif payload.get("type") == "final_decision":
+                            report = payload.get("data", {})
+                    except Exception:
+                        pass
+
+            try:
+                loop = asyncio.new_event_loop()
+                loop.run_until_complete(run_direct())
+                loop.close()
+            except Exception:
+                asyncio.run(run_direct())
+        except Exception as e:
+            status_placeholder.error(f"Error connecting to AI Orchestrator: {e}")
  
     if report:
         status_placeholder.empty()  # Clear checklist

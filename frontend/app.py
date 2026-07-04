@@ -91,7 +91,11 @@ def load_city_context(city: str):
         if response.status_code == 200:
             aqi = response.json()
     except Exception:
-        pass
+        try:
+            from backend.services.aqi_service import aqi_service
+            aqi = aqi_service.get_aqi(city)
+        except Exception:
+            pass
     return weather, aqi
 
 
