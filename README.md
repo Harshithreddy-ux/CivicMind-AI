@@ -272,17 +272,8 @@ MIT License
 
 **P. Harshith Reddy**
 
-Artificial Intelligence Engineering Undergraduate
-
-Amrita Vishwa Vidyapeetham
-
-GitHub
-
-https://github.com/Harshithreddy-ux
-
-LinkedIn
-
-www.linkedin.com/in/p-harshith-reddy-679141333
+- [GitHub](https://github.com/Harshithreddy-ux)
+- [LinkedIn](https://www.linkedin.com/in/p-harshith-reddy-679141333)
 
 ---
 
