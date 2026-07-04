@@ -1,18 +1,15 @@
-# 🌆 CivicMind AI
+# CivicMind AI
 
 <p align="center">
-
 <img src="assets/logo.svg" width="180"/>
 
 # Enterprise Smart City Decision Intelligence Platform
-
 ### Multi-Agent AI • GIS Intelligence • Decision Support • Disaster Analytics
-
 </p>
 
 ---
 
-# 📖 Overview
+# Overview
 
 CivicMind AI is an enterprise-grade Smart City Decision Intelligence Platform designed to assist city administrators, emergency responders, disaster management teams, and urban planners with real-time insights, AI-powered recommendations, and geospatial analytics.
 
@@ -22,26 +19,17 @@ Unlike conventional dashboards, CivicMind AI follows a **Multi-Agent Architectur
 
 ---
 
-# ✨ Key Features
+# Key Features
 
-- 🤖 Multi-Agent Decision Intelligence
-- 🌦 Live Weather Intelligence
-- 🌫 Live AQI Monitoring
-- 🗺 GIS-powered Interactive Maps
-- 🏥 Hospital Accessibility Analysis
-- 🌊 Flood Risk Assessment
-- 🚓 Crime Pattern Analytics
-- 👥 Population Density Analysis
-- 📄 Retrieval-Augmented Generation (RAG)
-- 📊 Executive Analytics Dashboard
-- 📍 Smart City Intelligence
-- 📑 Automated Reports
-- 📱 Responsive Web Interface
-- ⚡ Enterprise UI
+- **Multi-Agent Decision Intelligence:** Specialized domain agents executing concurrently to evaluate risk.
+- **Live Weather & AQI Monitoring:** Real-time environmental tracking via open APIs.
+- **GIS Spatial Intelligence:** Folium-based overlay maps showing healthcare hubs and hazard zones.
+- **Retrieval-Augmented Generation (RAG):** Semantic lookup of municipal guidelines and disaster procedures.
+- **Municipal Report Exporting:** Interactive browser downloads for markdown, CSV, and JSON Daily summaries.
 
 ---
 
-# 🏗 System Architecture
+# System Architecture
 
 The high-level system architecture of CivicMind AI is detailed below, highlighting the unified layers from frontend Streamlit views, through the FastAPI coordinator and domain agent orchestration, down to the regional databases and GCP infrastructure.
 
@@ -51,7 +39,7 @@ The high-level system architecture of CivicMind AI is detailed below, highlighti
 
 ---
 
-# 🔄 Process Workflow
+# Process Workflow
 
 Below is the dynamic workflow flowchart demonstrating how a user's operational request flows through the Multi-Agent orchestrator, gets mapped to parallel domain-expert agents, and is synthesized via Gemini 2.5 Flash and retrieval models to output executive plans.
 
@@ -61,7 +49,7 @@ Below is the dynamic workflow flowchart demonstrating how a user's operational r
 
 ---
 
-# 🧠 Multi-Agent System
+# Multi-Agent System
 
 The platform includes specialized AI agents:
 
@@ -80,7 +68,7 @@ The platform includes specialized AI agents:
 
 ---
 
-# 🗺 GIS Capabilities
+# GIS Capabilities
 
 - OpenStreetMap Integration
 - Dynamic State-Level Analysis
@@ -96,7 +84,7 @@ The platform includes specialized AI agents:
 
 ---
 
-# 📊 Dashboard Modules
+# Dashboard Modules
 
 - Dashboard
 - Analytics
@@ -108,7 +96,7 @@ The platform includes specialized AI agents:
 
 ---
 
-# 📁 Project Structure
+# Project Structure
 
 ```text
 CivicMind-AI
@@ -137,7 +125,7 @@ CivicMind-AI
 
 ---
 
-# 🗃 Datasets
+# Datasets
 
 The project integrates real-world datasets including:
 
@@ -154,10 +142,9 @@ Large GIS files are excluded from GitHub due to repository size limitations.
 
 ---
 
-# ⚙ Technology Stack
+# Technology Stack
 
 ### Backend
-
 - FastAPI
 - Python
 - AsyncIO
@@ -166,21 +153,18 @@ Large GIS files are excluded from GitHub due to repository size limitations.
 - Rasterio
 
 ### AI
-
 - Gemini
 - FAISS
 - RAG
 - Multi-Agent Architecture
 
 ### GIS
-
 - Folium
 - OpenStreetMap
 - GeoJSON
 - Raster Layers
 
 ### Frontend
-
 - Streamlit
 - Plotly
 - HTML/CSS
@@ -188,13 +172,12 @@ Large GIS files are excluded from GitHub due to repository size limitations.
 
 ---
 
-# 🚀 Installation
+# Installation
 
 Clone repository
 
 ```bash
 git clone https://github.com/Harshithreddy-ux/CivicMind-AI.git
-
 cd CivicMind-AI
 ```
 
@@ -213,7 +196,7 @@ GEMINI_API_KEY=YOUR_KEY
 Start Backend
 
 ```bash
-uvicorn backend.main:app --reload
+uvicorn backend.main:app
 ```
 
 Start Frontend
@@ -224,19 +207,31 @@ streamlit run frontend/app.py
 
 ---
 
-# 📸 Screenshots
+# Screenshots
 
-> Add screenshots here
+### 1. Operations Dashboard
+<p align="center">
+  <img src="assets/dashboard.png" alt="CivicMind AI Dashboard" width="900"/>
+</p>
 
-- Dashboard
-- Analytics
-- Map
-- AI Assistant
-- Reports
+### 2. Historical Analytics
+<p align="center">
+  <img src="assets/analytics.png" alt="CivicMind AI Analytics" width="900"/>
+</p>
+
+### 3. Forecast Trends
+<p align="center">
+  <img src="assets/forecast.png" alt="CivicMind AI Forecast" width="900"/>
+</p>
+
+### 4. Municipal Reports
+<p align="center">
+  <img src="assets/reports.png" alt="CivicMind AI Reports" width="900"/>
+</p>
 
 ---
 
-# 🔮 Future Roadmap
+# Future Roadmap
 
 - IoT Sensor Integration
 - CCTV Analytics
@@ -250,7 +245,7 @@ streamlit run frontend/app.py
 
 ---
 
-# 🤝 Contributing
+# Contributing
 
 Pull requests are welcome.
 
@@ -258,13 +253,13 @@ For major changes, please open an issue first to discuss proposed improvements.
 
 ---
 
-# 📜 License
+# License
 
 MIT License
 
 ---
 
-# 👨‍💻 Author
+# Author
 
 **P. Harshith Reddy**
 
@@ -273,20 +268,16 @@ MIT License
 
 ---
 
-# ⭐ Support
+# Support
 
 If you found this project useful,
 
 ⭐ Star the repository
-
 🍴 Fork the repository
-
 🤝 Contribute to CivicMind AI
 
 ---
 
 <p align="center">
-
 Made with ❤️ using AI, GIS and Smart City Intelligence
-
 </p>
