@@ -1,45 +1,65 @@
 import streamlit as st
 
 
-def risk_score_panel(weather):
-
-    st.subheader("📊 City Health Score")
-
-    if not weather:
-        st.error("Unavailable")
-        return
-
-    current = weather["current"]
-
-    temp = current["temperature_2m"]
-
-    humidity = current["relative_humidity_2m"]
-
-    wind = current["wind_speed_10m"]
-
+def calculate_score(weather, aqi):
     score = 100
 
-    if temp > 35:
-        score -= 25
+    if weather:
+        current = weather["current"]
+        temp = current["temperature_2m"]
+        humidity = current["relative_humidity_2m"]
+        wind = current["wind_speed_10m"]
 
-    elif temp > 30:
-        score -= 10
+        if temp > 40:
+            score -= 15
+        if humidity > 85:
+            score -= 10
+        if wind > 35:
+            score -= 10
 
-    if humidity > 80:
-        score -= 10
+    if aqi:
+        try:
+            aqi_value = aqi["current"]["us_aqi"]
+            if aqi_value > 150:
+                score -= 40
+            elif aqi_value > 100:
+                score -= 20
+            elif aqi_value > 50:
+                score -= 10
+        except Exception:
+            pass
 
-    if wind > 30:
-        score -= 15
+    return max(score, 0)
 
-    score = max(score, 0)
 
-    st.progress(score / 100)
+def show_risk_score(weather, aqi):
+    score = calculate_score(weather, aqi)
+    degree = int(score * 3.6)
+    color = "#35d399"
+    status = "Excellent"
+    if score < 85:
+        color = "#fbbf24"
+        status = "Moderate"
+    if score < 65:
+        color = "#fb7185"
+        status = "Critical"
 
-    if score >= 80:
-        st.success(f"{score}/100  🟢 GOOD")
-
-    elif score >= 60:
-        st.warning(f"{score}/100  🟡 MODERATE")
-
-    else:
-        st.error(f"{score}/100  🔴 HIGH RISK")
+    st.markdown(
+        f"""
+        <div class='health-card'>
+            <div class='gauge-wrap'>
+                <div class='gauge' style='background: conic-gradient({color} 0deg, {color} {degree}deg, rgba(255,255,255,0.06) {degree}deg);'>
+                    <div class='gauge-inner'>
+                        <div class='gauge-score'>{score}%</div>
+                        <div class='gauge-label'>{status}</div>
+                    </div>
+                </div>
+            </div>
+            <div class='health-copy'>
+                <h4>City Health Score</h4>
+                <p>Urban resilience is {status.lower()} with a live readiness index of {score}%.</p>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )

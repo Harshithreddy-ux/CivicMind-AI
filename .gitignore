@@ -1,9 +1,238 @@
-.venv/
+############################################################
+# CIVICMIND AI - PRODUCTION .gitignore
+############################################################
+
+#############################
+# Python
+#############################
+
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+*.whl
+
+#############################
+# Virtual Environment
+#############################
+
+.venv/
+venv/
+env/
+ENV/
+
+#############################
+# Environment Variables
+#############################
+
 .env
-logs/
-*.db
+.env.*
+!.env.example
+
+#############################
+# IDE
+#############################
+
 .vscode/
 .idea/
+
+#############################
+# OS Files
+#############################
+
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+#############################
+# Python Cache
+#############################
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+
+#############################
+# Build
+#############################
+
+build/
+dist/
+site/
+htmlcov/
+
+#############################
+# Logs
+#############################
+
+logs/
+*.log
+
+#############################
+# Backup
+#############################
+
+backup/
+
+#############################
+# Temporary
+#############################
+
+tmp/
+temp/
+
+#############################
+# Streamlit
+#############################
+
+.streamlit/secrets.toml
+
+#############################
+# Jupyter
+#############################
+
+.ipynb_checkpoints/
+
+#############################
+# SQLite
+#############################
+
+*.db
+*.sqlite
+*.sqlite3
+
+#############################
+# Model Checkpoints
+#############################
+
+models/
+weights/
+checkpoints/
+
+#############################
+# Vector Databases
+#############################
+
+vector_db/
+faiss_index/
+
+#############################
+# Large GIS Files
+#############################
+
+datasets/*.osm.pbf
+datasets/*.tif
+datasets/*.tiff
+datasets/*.zip
+
+#############################
+# Generated Files
+#############################
+
+datasets/geocoding_cache.json
+datasets/population_lookup.csv
+
+#############################
+# Large Downloads
+#############################
+
+downloads/
+data_large/
+
+#############################
+# Docker
+#############################
+
+docker-compose.override.yml
+
+#############################
+# Terraform
+#############################
+
+.terraform/
+*.tfstate
+*.tfstate.*
+
+#############################
+# Node
+#############################
+
+node_modules/
+
+#############################
+# Test Outputs
+#############################
+
+.coverage
+coverage.xml
+
+#############################
+# Debug Scripts
+#############################
+
+diagnose_states.py
+trace_map.py
+validate_datasets.py
+validate_fixes.py
+verify_imports.py
+fix_deprecated.py
+
+#############################
+# Old Files
+#############################
+
+frontend/styles/style_old.css
+
+#############################
+# Compiled
+#############################
+
+*.class
+*.o
+*.obj
+
+#############################
+# Archives
+#############################
+
+*.7z
+*.rar
+*.tar
+*.gz
+
+#############################
+# Sensitive Keys
+#############################
+
+*.pem
+*.key
+*.crt
+
+#############################
+# Misc
+#############################
+
+*.bak
+*.swp
+*.tmp
+*.orig
+
+############################################################
+# KEEP THESE IN GITHUB
+############################################################
+
+!README.md
+!LICENSE
+!requirements.txt
+!assets/
+!frontend/
+!backend/
+!config/
+!tests/
+!datasets/*.csv
+!datasets/*.pdf
+!datasets/hospitals.csv

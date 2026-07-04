@@ -1,30 +1,43 @@
 """
-Supported Cities for CivicMind AI
+India-wide supported cities for CivicMind AI.
 """
 
 CITIES = {
-    "Bengaluru": {
-        "latitude": 12.9716,
-        "longitude": 77.5946
-    },
-
-    "Chennai": {
-        "latitude": 13.0827,
-        "longitude": 80.2707
-    },
-
-    "Hyderabad": {
-        "latitude": 17.3850,
-        "longitude": 78.4867
-    },
-
-    "Mumbai": {
-        "latitude": 19.0760,
-        "longitude": 72.8777
-    },
-
-    "Delhi": {
-        "latitude": 28.6139,
-        "longitude": 77.2090
-    }
+    "Andhra Pradesh": {"capital": "Hyderabad/Amaravati", "latitude": 16.5062, "longitude": 80.6480, "population": 49577103, "region": "South", "timezone": "IST"},
+    "Arunachal Pradesh": {"capital": "Itanagar", "latitude": 27.0844, "longitude": 93.6053, "population": 1383727, "region": "North-East", "timezone": "IST"},
+    "Assam": {"capital": "Dispur", "latitude": 26.1445, "longitude": 91.7362, "population": 31205576, "region": "North-East", "timezone": "IST"},
+    "Bihar": {"capital": "Patna", "latitude": 25.5941, "longitude": 85.1376, "population": 104099452, "region": "East", "timezone": "IST"},
+    "Chhattisgarh": {"capital": "Raipur", "latitude": 21.2514, "longitude": 81.6296, "population": 25545198, "region": "Central", "timezone": "IST"},
+    "Goa": {"capital": "Panaji", "latitude": 15.4909, "longitude": 73.8278, "population": 1458545, "region": "West", "timezone": "IST"},
+    "Gujarat": {"capital": "Gandhinagar", "latitude": 23.2156, "longitude": 72.6369, "population": 63872399, "region": "West", "timezone": "IST"},
+    "Haryana": {"capital": "Chandigarh", "latitude": 28.7041, "longitude": 77.1025, "population": 25351462, "region": "North", "timezone": "IST"},
+    "Himachal Pradesh": {"capital": "Shimla", "latitude": 31.1048, "longitude": 77.1734, "population": 6864602, "region": "North", "timezone": "IST"},
+    "Jharkhand": {"capital": "Ranchi", "latitude": 23.3441, "longitude": 85.3096, "population": 32988134, "region": "East", "timezone": "IST"},
+    "Karnataka": {"capital": "Bengaluru", "latitude": 12.9716, "longitude": 77.5946, "population": 61095297, "region": "South", "timezone": "IST"},
+    "Kerala": {"capital": "Thiruvananthapuram", "latitude": 8.5241, "longitude": 76.9366, "population": 33406061, "region": "South", "timezone": "IST"},
+    "Madhya Pradesh": {"capital": "Bhopal", "latitude": 23.2599, "longitude": 77.4126, "population": 72626809, "region": "Central", "timezone": "IST"},
+    "Maharashtra": {"capital": "Mumbai", "latitude": 19.0760, "longitude": 72.8777, "population": 112374333, "region": "West", "timezone": "IST"},
+    "Manipur": {"capital": "Imphal", "latitude": 24.8170, "longitude": 93.9368, "population": 2855794, "region": "North-East", "timezone": "IST"},
+    "Meghalaya": {"capital": "Shillong", "latitude": 25.5788, "longitude": 91.8933, "population": 2966889, "region": "North-East", "timezone": "IST"},
+    "Mizoram": {"capital": "Aizawl", "latitude": 23.7307, "longitude": 92.7173, "population": 1097206, "region": "North-East", "timezone": "IST"},
+    "Nagaland": {"capital": "Kohima", "latitude": 25.6751, "longitude": 94.1086, "population": 1978502, "region": "North-East", "timezone": "IST"},
+    "Odisha": {"capital": "Bhubaneswar", "latitude": 20.2961, "longitude": 85.8245, "population": 41974219, "region": "East", "timezone": "IST"},
+    "Punjab": {"capital": "Chandigarh", "latitude": 30.7333, "longitude": 76.7794, "population": 27743338, "region": "North", "timezone": "IST"},
+    "Rajasthan": {"capital": "Jaipur", "latitude": 26.9124, "longitude": 75.7873, "population": 68548437, "region": "North-West", "timezone": "IST"},
+    "Sikkim": {"capital": "Gangtok", "latitude": 27.3389, "longitude": 88.6065, "population": 610577, "region": "North-East", "timezone": "IST"},
+    "Tamil Nadu": {"capital": "Chennai", "latitude": 13.0827, "longitude": 80.2707, "population": 72147030, "region": "South", "timezone": "IST"},
+    "Telangana": {"capital": "Hyderabad", "latitude": 17.3850, "longitude": 78.4867, "population": 35003674, "region": "South", "timezone": "IST"},
+    "Tripura": {"capital": "Agartala", "latitude": 23.8315, "longitude": 91.2868, "population": 3673917, "region": "North-East", "timezone": "IST"},
+    "Uttar Pradesh": {"capital": "Lucknow", "latitude": 26.8467, "longitude": 80.9462, "population": 199812341, "region": "North", "timezone": "IST"},
+    "Uttarakhand": {"capital": "Dehradun", "latitude": 30.3165, "longitude": 78.0322, "population": 10086292, "region": "North", "timezone": "IST"},
+    "West Bengal": {"capital": "Kolkata", "latitude": 22.5726, "longitude": 88.3639, "population": 91276115, "region": "East", "timezone": "IST"},
+    "Delhi": {"capital": "Delhi", "latitude": 28.6139, "longitude": 77.2090, "population": 16787941, "region": "North", "timezone": "IST"},
+    "Puducherry": {"capital": "Puducherry", "latitude": 11.9416, "longitude": 79.8083, "population": 1247953, "region": "South", "timezone": "IST"},
+    "Chandigarh": {"capital": "Chandigarh", "latitude": 30.7333, "longitude": 76.7794, "population": 1055450, "region": "North", "timezone": "IST"},
+    "Ladakh": {"capital": "Leh", "latitude": 34.1526, "longitude": 77.5770, "population": 274000, "region": "North", "timezone": "IST"},
+    "Lakshadweep": {"capital": "Kavaratti", "latitude": 10.5667, "longitude": 72.6167, "population": 64473, "region": "Island", "timezone": "IST"},
+    "Andaman & Nicobar Islands": {"capital": "Port Blair", "latitude": 11.6234, "longitude": 92.7265, "population": 380581, "region": "Island", "timezone": "IST"},
+    "Daman & Diu": {"capital": "Daman", "latitude": 20.4283, "longitude": 72.8397, "population": 243247, "region": "West", "timezone": "IST"},
+    "Dadra & Nagar Haveli": {"capital": "Silvassa", "latitude": 20.2667, "longitude": 73.0167, "population": 343709, "region": "West", "timezone": "IST"},
+    "Jammu & Kashmir": {"capital": "Srinagar/Jammu", "latitude": 33.7782, "longitude": 76.5762, "population": 12541302, "region": "North", "timezone": "IST"},
 }
