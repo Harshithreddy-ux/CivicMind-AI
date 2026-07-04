@@ -226,17 +226,30 @@ streamlit run frontend/app.py
 
 # 📸 Screenshots
 
-> Add screenshots here
+### 1. Executive Operations & Multi-Agent Dashboard
+The central command console features live weather metrics, AQI telemetry, and a multi-agent status stream indicating execution milestones of the coordinator and specialized agents.
 
-Dashboard
+<p align="center">
+  <img src="assets/screenshot_dashboard.png" alt="CivicMind AI Dashboard" width="900"/>
+</p>
 
-Analytics
+---
 
-Map
+### 2. GIS Map & Spatial Intelligence
+The geospatial page lists local hospital hubs, environmental contours, and road coordinates directly mapped using Folium and India OpenStreetMap overlays.
 
-AI Assistant
+<p align="center">
+  <img src="assets/screenshot_gis.png" alt="CivicMind AI GIS Map" width="900"/>
+</p>
 
-Reports
+---
+
+### 3. Analytics & Historical Analysis
+Interactive graphs demonstrate population-to-facility densities, crime reports, and rainfall parameters derived from Cached Pandas pipelines.
+
+<p align="center">
+  <img src="assets/screenshot_analytics.png" alt="CivicMind AI Analytics" width="900"/>
+</p>
 
 ---
 
