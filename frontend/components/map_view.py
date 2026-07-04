@@ -214,14 +214,14 @@ def show_map(selected_city):
         for idx, (label, key) in enumerate(layers_part1):
             with cols1[idx]:
                 toggles[label] = st.checkbox(
-                    label, value=st.session_state.get(f"map_toggle_{key}_{ck}", defaults[key]),
-                    key=f"map_toggle_{key}_{ck}"
+                    label, value=st.session_state.get(f"map_toggle_{key}", defaults[key]),
+                    key=f"map_toggle_{key}"
                 )
         for idx, (label, key) in enumerate(layers_part2):
             with cols2[idx]:
                 toggles[label] = st.checkbox(
-                    label, value=st.session_state.get(f"map_toggle_{key}_{ck}", defaults[key]),
-                    key=f"map_toggle_{key}_{ck}"
+                    label, value=st.session_state.get(f"map_toggle_{key}", defaults[key]),
+                    key=f"map_toggle_{key}"
                 )
 
     base_lat = city_info["latitude"]
@@ -514,9 +514,9 @@ def show_map(selected_city):
     )
     map_data = st_folium(
         m,
-        width="100%",
+        use_container_width=True,
         height=580,
-        key=f"gis-map-{selected_city}",
+        key="gis-map-main-component",
         returned_objects=["last_clicked"],
     )
     st.markdown("</div>", unsafe_allow_html=True)
