@@ -12,26 +12,6 @@
 
 ---
 
-<p align="center">
-
-![Python](https://img.shields.io/badge/Python-3.11-blue)
-
-![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
-
-![Streamlit](https://img.shields.io/badge/Streamlit-Frontend-red)
-
-![AI](https://img.shields.io/badge/Multi-Agent_AI-Enabled-purple)
-
-![GIS](https://img.shields.io/badge/OpenStreetMap-GIS-success)
-
-![Status](https://img.shields.io/badge/Status-Active-success)
-
-![License](https://img.shields.io/badge/License-MIT-yellow)
-
-</p>
-
----
-
 # 📖 Overview
 
 CivicMind AI is an enterprise-grade Smart City Decision Intelligence Platform designed to assist city administrators, emergency responders, disaster management teams, and urban planners with real-time insights, AI-powered recommendations, and geospatial analytics.
