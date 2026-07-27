@@ -118,7 +118,7 @@ async def health():
         "status": "healthy" if db_status == "connected" else "degraded",
         "database": db_status,
         "gemini_api": "configured" if os.getenv("GEMINI_API_KEY") else "missing",
-        "redis": "connected" if HAS_REDIS else "offline"
+        "redis_cache": "connected" if HAS_REDIS else "offline (optional, falling back to local memory)"
     }
 
 @app.get("/cities")
