@@ -40,7 +40,13 @@ coordinator_agent = CoordinatorAgent()
 
 # Redis Setup with Safe Fallback
 try:
-    redis_client = redis.Redis(host='localhost', port=6379, db=0, socket_timeout=1)
+    redis_client = redis.Redis(
+        host='127.0.0.1', 
+        port=6379, 
+        db=0, 
+        socket_timeout=0.5,
+        socket_connect_timeout=0.5
+    )
     redis_client.ping()
     HAS_REDIS = True
     logger.info("Connected to Redis successfully.")
