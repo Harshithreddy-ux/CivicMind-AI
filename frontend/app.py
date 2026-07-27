@@ -37,7 +37,7 @@ BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
 # Thread-safe WebSocket Background Alert Listener
 def start_alert_listener():
     import asyncio
-    
+
     async def ws_client():
         import websockets
         ws_url = BACKEND_URL.replace("http://", "ws://").replace("https://", "wss://")
@@ -51,7 +51,9 @@ def start_alert_listener():
                         if "alerts" not in st.session_state:
                             st.session_state.alerts = []
                         st.session_state.alerts.append(data)
-                        st.rerun()
+                        # NOTE: st.rerun() must NOT be called from a background
+                        # thread — it causes glitches. Alerts surface on next
+                        # natural user interaction rerun instead.
             except Exception:
                 await asyncio.sleep(5)  # Reconnect cooldown
 

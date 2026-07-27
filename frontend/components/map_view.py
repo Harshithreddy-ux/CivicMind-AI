@@ -508,18 +508,24 @@ def show_map(selected_city):
 
     # ── Map render ────────────────────────────────────────────────────────────
     st.markdown(
-        "<div style='border-radius:12px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.12);"
-        "border:1px solid rgba(0,0,0,0.08);margin-top:6px;'>",
+        """
+        <style>
+        .folium-map-wrapper iframe {
+            border-radius: 12px !important;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15) !important;
+        }
+        </style>
+        """,
         unsafe_allow_html=True,
     )
-    map_data = st_folium(
-        m,
-        use_container_width=True,
-        height=580,
-        key="gis-map-main-component",
-        returned_objects=["last_clicked"],
-    )
-    st.markdown("</div>", unsafe_allow_html=True)
+    with st.container():
+        map_data = st_folium(
+            m,
+            use_container_width=True,
+            height=580,
+            key=f"gis-map-{selected_city}",
+            returned_objects=["last_clicked"],
+        )
 
     # ── Click-to-analyze ──────────────────────────────────────────────────────
     if map_data and map_data.get("last_clicked"):

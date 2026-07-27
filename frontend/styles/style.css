@@ -705,14 +705,12 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     padding: 1.2rem !important;
     box-shadow: var(--shadow-subtle) !important;
     border: 1px solid rgba(128, 128, 128, 0.12) !important;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color 0.25s ease !important;
+    transition: box-shadow 0.3s ease, border-color 0.25s ease !important;
 }
 div[data-testid="stVerticalBlockBorderWrapper"]:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 24px rgba(0, 229, 255, 0.08), var(--shadow-subtle) !important;
-    border-color: rgba(0, 229, 255, 0.2) !important;
+    /* No translateY here — it shifts iframe elements like maps */
+    box-shadow: 0 6px 20px rgba(0, 229, 255, 0.07), var(--shadow-subtle) !important;
+    border-color: rgba(0, 229, 255, 0.18) !important;
 }
 
 /* =========================================
