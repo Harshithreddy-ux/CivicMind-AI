@@ -702,17 +702,17 @@ section[data-testid="stSidebar"] {
 div[data-testid="stVerticalBlockBorderWrapper"] {
     background-color: var(--card-solid) !important;
     border-radius: var(--radius-md) !important;
-    padding: 1.5rem !important;
+    padding: 1.2rem !important;
     box-shadow: var(--shadow-subtle) !important;
-    border: 1px solid rgba(255, 255, 255, 0.03) !important;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color 0.3s ease !important;
+    border: 1px solid rgba(128, 128, 128, 0.12) !important;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.25s ease !important;
 }
 div[data-testid="stVerticalBlockBorderWrapper"]:hover {
-    transform: translateY(-4px) scale(1.005) !important;
-    box-shadow: 0 15px 35px rgba(0, 229, 255, 0.1), var(--shadow-subtle) !important;
-    border-color: rgba(0, 229, 255, 0.25) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(0, 229, 255, 0.08), var(--shadow-subtle) !important;
+    border-color: rgba(0, 229, 255, 0.2) !important;
 }
 
 /* =========================================
@@ -814,39 +814,13 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 }
 
 /* =========================================
-   Sidebar Profile Segment
+   Sidebar Version Tag
    ========================================= */
-.sidebar-profile {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    margin-top: 2rem;
-}
-.profile-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent-purple), var(--success));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #fff;
-    box-shadow: 0 2px 8px rgba(94, 231, 255, 0.25);
-}
-.profile-info h5 {
-    margin: 0;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text-main);
-}
-.profile-info p {
-    margin: 0;
-    font-size: 0.7rem;
+.sidebar-version {
+    text-align: center;
+    font-size: 0.68rem;
     color: var(--text-muted);
+    padding: 1rem 0 0.5rem 0;
+    opacity: 0.5;
+    letter-spacing: 0.04em;
 }

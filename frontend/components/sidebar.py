@@ -64,19 +64,6 @@ def show_sidebar():
             },
         )
 
-        st.markdown(
-            """
-            <div class='sidebar-profile'>
-                <div class='profile-avatar'>BD</div>
-                <div class='profile-info'>
-                    <h5>Buddy</h5>
-                    <p>Enterprise Operator</p>
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
         st.session_state.selected_page = selected_page
 
     return selected_page, selected_city
