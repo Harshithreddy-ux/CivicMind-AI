@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
+import base64
 from utils.dataset_service import get_city_facilities, get_city_population, get_city_rainfall
 
 def render_reports(selected_city, weather, aqi):
@@ -74,66 +75,60 @@ def render_reports(selected_city, weather, aqi):
     ])
     csv_data = csv_df.to_csv(index=False)
 
+    # Prepare base64 encodings
+    b64_report = base64.b64encode(markdown_report.encode()).decode()
+    
+    emerg_text = f"# CivicMind AI - Emergency Coordination Plan\nCity: {selected_city}\nDate: {datetime.now().strftime('%Y-%m-%d')}\n\n1. Alert emergency networks.\n2. Dispatch medical reserves near local hospital hubs ({len(hospitals)} active)."
+    b64_emerg = base64.b64encode(emerg_text.encode()).decode()
+    
+    b64_csv = base64.b64encode(csv_data.encode()).decode()
+    
+    import json
+    json_data = json.dumps({
+        "city": selected_city,
+        "timestamp": datetime.now().isoformat(),
+        "population": population,
+        "rainfall_mm": rainfall,
+        "active_hospitals": len(hospitals),
+        "weather": weather.get("current", {}) if weather else {},
+        "aqi": aqi.get("current", {}) if aqi else {},
+    }, indent=2)
+    b64_json = base64.b64encode(json_data.encode()).decode()
+
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown("<div class='cm-card' style='padding: 1.2rem; margin-bottom: 1rem;'>", unsafe_allow_html=True)
-        st.markdown("### Executive Report")
-        st.caption("Comprehensive analysis containing telemetry, demographic statistics, and action plans.")
-        st.download_button(
-            label="📄 Download Executive Report (.md)",
-            data=markdown_report,
-            file_name=f"civicmind_report_{selected_city.lower().replace(' ', '_')}.md",
-            mime="text/markdown",
-            key="btn_download_report"
-        )
-        st.markdown("</div>", unsafe_allow_html=True)
-
-        st.markdown("<div class='cm-card' style='padding: 1.2rem;'>", unsafe_allow_html=True)
-        st.markdown("### Emergency Response Report")
-        st.caption("Standard operational plan for medical and environmental relief coordination.")
-        st.download_button(
-            label="🚨 Download Emergency Report (.md)",
-            data=f"# CivicMind AI - Emergency Coordination Plan\nCity: {selected_city}\nDate: {datetime.now().strftime('%Y-%m-%d')}\n\n1. Alert emergency networks.\n2. Dispatch medical reserves near local hospital hubs ({len(hospitals)} active).",
-            file_name=f"civicmind_emergency_{selected_city.lower().replace(' ', '_')}.md",
-            mime="text/markdown",
-            key="btn_download_emergency"
-        )
-        st.markdown("</div>", unsafe_allow_html=True)
+        with st.container(border=True):
+            st.markdown("### Executive Report")
+            st.caption("Comprehensive analysis containing telemetry, demographic statistics, and action plans.")
+            st.markdown(
+                f'<a href="data:text/markdown;base64,{b64_report}" download="civicmind_report_{selected_city.lower().replace(" ", "_")}.md" class="premium-btn">📄 Download Executive Report (.md)</a>',
+                unsafe_allow_html=True
+            )
+            
+        with st.container(border=True):
+            st.markdown("### Emergency Response Report")
+            st.caption("Standard operational plan for medical and environmental relief coordination.")
+            st.markdown(
+                f'<a href="data:text/markdown;base64,{b64_emerg}" download="civicmind_emergency_{selected_city.lower().replace(" ", "_")}.md" class="premium-btn">🚨 Download Emergency Report (.md)</a>',
+                unsafe_allow_html=True
+            )
 
     with col2:
-        st.markdown("<div class='cm-card' style='padding: 1.2rem; margin-bottom: 1rem;'>", unsafe_allow_html=True)
-        st.markdown("### Data Summary (CSV)")
-        st.caption("Raw municipal metric exports suitable for third-party spreadsheet ingestion.")
-        st.download_button(
-            label="📊 Download CSV Summary",
-            data=csv_data,
-            file_name=f"civicmind_summary_{selected_city.lower().replace(' ', '_')}.csv",
-            mime="text/csv",
-            key="btn_download_csv"
-        )
-        st.markdown("</div>", unsafe_allow_html=True)
-
-        st.markdown("<div class='cm-card' style='padding: 1.2rem;'>", unsafe_allow_html=True)
-        st.markdown("### Daily Summary Export")
-        st.caption("Standard JSON dump containing operational telemetry values.")
-        import json
-        json_data = json.dumps({
-            "city": selected_city,
-            "timestamp": datetime.now().isoformat(),
-            "population": population,
-            "rainfall_mm": rainfall,
-            "active_hospitals": len(hospitals),
-            "weather": weather.get("current", {}) if weather else {},
-            "aqi": aqi.get("current", {}) if aqi else {},
-        }, indent=2)
-        st.download_button(
-            label="💾 Download JSON Export",
-            data=json_data,
-            file_name=f"civicmind_export_{selected_city.lower().replace(' ', '_')}.json",
-            mime="application/json",
-            key="btn_download_json"
-        )
-        st.markdown("</div>", unsafe_allow_html=True)
+        with st.container(border=True):
+            st.markdown("### Data Summary (CSV)")
+            st.caption("Raw municipal metric exports suitable for third-party spreadsheet ingestion.")
+            st.markdown(
+                f'<a href="data:text/csv;base64,{b64_csv}" download="civicmind_summary_{selected_city.lower().replace(" ", "_")}.csv" class="premium-btn">📊 Download CSV Summary</a>',
+                unsafe_allow_html=True
+            )
+            
+        with st.container(border=True):
+            st.markdown("### Daily Summary Export")
+            st.caption("Standard JSON dump containing operational telemetry values.")
+            st.markdown(
+                f'<a href="data:application/json;base64,{b64_json}" download="civicmind_export_{selected_city.lower().replace(" ", "_")}.json" class="premium-btn">💾 Download JSON Export</a>',
+                unsafe_allow_html=True
+            )
 
     st.subheader("Live Operational Summary")
     st.write({

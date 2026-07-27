@@ -21,6 +21,7 @@ def show_sidebar():
         selected_page = option_menu(
             menu_title=None,
             options=[
+                "Home",
                 "Dashboard",
                 "Analytics",
                 "City Intelligence",
@@ -30,6 +31,7 @@ def show_sidebar():
                 "Settings"
             ],
             icons=[
+                "house",
                 "grid-1x2",
                 "graph-up-arrow",
                 "map",
@@ -65,6 +67,19 @@ def show_sidebar():
                     "font-weight": "600"
                 },
             },
+        )
+
+        st.markdown(
+            """
+            <div class='sidebar-profile'>
+                <div class='profile-avatar'>BD</div>
+                <div class='profile-info'>
+                    <h5>Buddy</h5>
+                    <p>Enterprise Operator</p>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
         )
 
     return selected_page, selected_city

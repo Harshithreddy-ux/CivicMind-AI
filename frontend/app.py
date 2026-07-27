@@ -15,6 +15,7 @@ for path in (str(ROOT), str(FRONTEND_ROOT)):
 from components.cards import get_weather_data
 from components.footer import render_footer
 from components.sidebar import show_sidebar
+from pages.home import render_home
 from pages.analytics import render_analytics
 from pages.assistant import render_assistant
 from pages.city_map import render_city_map
@@ -162,7 +163,9 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-if selected_page == "Analytics":
+if selected_page == "Home":
+    render_home()
+elif selected_page == "Analytics":
     render_analytics(selected_city, weather, aqi)
 elif selected_page == "City Intelligence":
     render_city_map(selected_city)

@@ -97,10 +97,9 @@ def render_charts(weather, aqi):
         ),
     )
 
-    st.markdown("<div class='cm-card' style='padding:1rem;'>", unsafe_allow_html=True)
-    st.markdown(
-        "<div style='font-size:0.85rem;color:#A5B6D6;font-weight:600;margin-bottom:8px;'>LIVE TELEMETRY</div>",
-        unsafe_allow_html=True,
-    )
-    st.plotly_chart(fig, width='stretch', config={"displayModeBar": False})
-    st.markdown("</div>", unsafe_allow_html=True)
+    with st.container(border=True):
+        st.markdown(
+            "<div style='font-size:0.85rem;color:#A5B6D6;font-weight:600;margin-bottom:8px;'>LIVE TELEMETRY</div>",
+            unsafe_allow_html=True,
+        )
+        st.plotly_chart(fig, width='stretch', config={"displayModeBar": False})
