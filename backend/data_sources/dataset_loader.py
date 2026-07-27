@@ -94,19 +94,19 @@ def load_crime_data(location: str = None) -> pd.DataFrame:
         from backend.agents.crime_agent import STATE_TO_CRIME_CITY
         crime_city = STATE_TO_CRIME_CITY.get(location)
         if crime_city:
-            return _query_to_df("SELECT * FROM crimes WHERE lower(city) = ?", (crime_city.lower(),))
+            return _query_to_df("SELECT * FROM crimes WHERE lower(City) = ?", (crime_city.lower(),))
         else:
-            return _query_to_df("SELECT * FROM crimes WHERE lower(city) = ?", (location.lower(),))
+            return _query_to_df("SELECT * FROM crimes WHERE lower(City) = ?", (location.lower(),))
     return _query_to_df("SELECT * FROM crimes")
 
 def load_hospital_data(location: str = None) -> pd.DataFrame:
     """Loads hospital directory data. If location is provided, queries SQLite selectively."""
     if location:
         norm_loc = normalize_state_name(location)
-        df = _query_to_df("SELECT * FROM hospitals WHERE state = ?", (norm_loc,))
+        df = _query_to_df("SELECT * FROM hospitals WHERE State = ?", (norm_loc,))
         if df.empty and norm_loc:
             first_word = norm_loc.split()[0].lower()
-            df = _query_to_df("SELECT * FROM hospitals WHERE lower(state) LIKE ?", (f"%{first_word}%",))
+            df = _query_to_df("SELECT * FROM hospitals WHERE lower(State) LIKE ?", (f"%{first_word}%",))
         return df
     return _query_to_df("SELECT * FROM hospitals")
 
