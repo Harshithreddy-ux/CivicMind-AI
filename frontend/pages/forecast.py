@@ -9,7 +9,7 @@ def render_forecast(selected_city, weather, aqi):
     if weather and weather.get("current"):
         current = weather["current"]
         temp = current.get("temperature_2m", 0)
-        aqi_value = aqi["current"]["us_aqi"] if aqi and aqi.get("current") else 0
+        aqi_value = aqi["current"].get("us_aqi", 0) if (aqi and isinstance(aqi, dict) and isinstance(aqi.get("current"), dict)) else 0
         
         # 1. Fetch real forecast lists if present, otherwise construct dynamic ones
         daily = weather.get("daily", {})
@@ -75,7 +75,7 @@ def render_forecast(selected_city, weather, aqi):
             legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
             hovermode="x unified"
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
     else:
         st.info("Live forecast data is not available right now. The interface will recover automatically once data is returned.")
 

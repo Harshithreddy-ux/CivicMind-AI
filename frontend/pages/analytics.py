@@ -22,7 +22,7 @@ def render_analytics(selected_city, weather, aqi):
     with metric_cols[2]:
         st.metric("Hospitals", len(hospitals))
     with metric_cols[3]:
-        aqi_value = aqi["current"]["us_aqi"] if aqi and aqi.get("current") else "N/A"
+        aqi_value = aqi["current"].get("us_aqi", "N/A") if (aqi and isinstance(aqi, dict) and isinstance(aqi.get("current"), dict)) else "N/A"
         st.metric("AQI", aqi_value)
 
     fig = go.Figure()

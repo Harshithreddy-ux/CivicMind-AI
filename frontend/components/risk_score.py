@@ -4,28 +4,32 @@ import streamlit as st
 def calculate_score(weather, aqi):
     score = 100
 
-    if weather:
+    if weather and isinstance(weather, dict) and "current" in weather:
         current = weather["current"]
-        temp = current["temperature_2m"]
-        humidity = current["relative_humidity_2m"]
-        wind = current["wind_speed_10m"]
+        if isinstance(current, dict):
+            temp = current.get("temperature_2m", 25.0)
+            humidity = current.get("relative_humidity_2m", 60.0)
+            wind = current.get("wind_speed_10m", 10.0)
 
-        if temp > 40:
-            score -= 15
-        if humidity > 85:
-            score -= 10
-        if wind > 35:
-            score -= 10
-
-    if aqi:
-        try:
-            aqi_value = aqi["current"]["us_aqi"]
-            if aqi_value > 150:
-                score -= 40
-            elif aqi_value > 100:
-                score -= 20
-            elif aqi_value > 50:
+            if temp > 40:
+                score -= 15
+            if humidity > 85:
                 score -= 10
+            if wind > 35:
+                score -= 10
+
+    if aqi and isinstance(aqi, dict) and "current" in aqi:
+        try:
+            current_aqi = aqi["current"]
+            if isinstance(current_aqi, dict):
+                aqi_value = current_aqi.get("us_aqi")
+                if aqi_value is not None:
+                    if aqi_value > 150:
+                        score -= 40
+                    elif aqi_value > 100:
+                        score -= 20
+                    elif aqi_value > 50:
+                        score -= 10
         except Exception:
             pass
 

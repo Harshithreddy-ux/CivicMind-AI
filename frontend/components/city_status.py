@@ -30,21 +30,27 @@ def city_status(*args, **kwargs):
         unsafe_allow_html=True,
     )
 
-    current = weather.get("current") if weather else None
+    current = weather.get("current") if (weather and isinstance(weather, dict)) else None
     aqi_value = "--"
-    if aqi and aqi.get("current"):
+    if aqi and isinstance(aqi, dict) and aqi.get("current"):
         try:
-            aqi_value = aqi["current"].get("us_aqi", "--")
+            current_aqi = aqi["current"]
+            if isinstance(current_aqi, dict):
+                aqi_value = current_aqi.get("us_aqi", "--")
         except Exception:
             pass
 
     population = get_city_population(city) if city else None
     hospital_count = _get_hospital_count(city) if city else 0
 
+    temp = current.get("temperature_2m") if (current and isinstance(current, dict)) else None
+    hum = current.get("relative_humidity_2m") if (current and isinstance(current, dict)) else None
+    wind = current.get("wind_speed_10m") if (current and isinstance(current, dict)) else None
+
     stats = [
-        ("Temperature", f"{current['temperature_2m']}°C" if current else "—", "Live Weather", "🌡"),
-        ("Humidity", f"{current['relative_humidity_2m']}%" if current else "—", "Atmospheric", "💧"),
-        ("Wind Speed", f"{current['wind_speed_10m']} km/h" if current else "—", "Surface Flow", "💨"),
+        ("Temperature", f"{temp}°C" if temp is not None else "—", "Live Weather", "🌡"),
+        ("Humidity", f"{hum}%" if hum is not None else "—", "Atmospheric", "💧"),
+        ("Wind Speed", f"{wind} km/h" if wind is not None else "—", "Surface Flow", "💨"),
         ("Air Quality", str(aqi_value), "AQI Index", "🌫"),
         ("Population", f"{population:,}" if population else "—", "Registered", "👥"),
         ("Hospitals", str(hospital_count), "Facilities", "🏥"),
