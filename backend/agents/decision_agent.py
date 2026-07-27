@@ -12,7 +12,7 @@ class DecisionAgent(BaseAgent):
         try:
             api_key = os.getenv("GEMINI_API_KEY", "")
             if not api_key:
-                return self.format_success(data=self._mock_decision(agent_results), summary="Decision Engine completed local mock synthesis.")
+                return self.format_success(data=self._mock_decision(context, agent_results), summary="Decision Engine completed local mock synthesis.")
             
             genai.configure(api_key=api_key)
             model = genai.GenerativeModel('gemini-2.5-flash')
@@ -55,7 +55,7 @@ class DecisionAgent(BaseAgent):
             
         except Exception as e:
             print(f"Decision Engine Error: {e}")
-            return self.format_success(data=self._mock_decision(agent_results), summary="Decision Engine fell back to local synthesis.")
+            return self.format_success(data=self._mock_decision(context, agent_results), summary="Decision Engine fell back to local synthesis.")
 
     def _normalize_decision(self, data: dict, agent_results: dict) -> dict:
         """Normalizes and guarantees all fields match the strict enterprise JSON schema."""
@@ -120,34 +120,79 @@ class DecisionAgent(BaseAgent):
 
         return data
 
-    def _mock_decision(self, agent_results: dict) -> dict:
+    def _mock_decision(self, context: dict, agent_results: dict) -> dict:
         """Fully compliant schema mock decision fallback."""
+        location = context.get("location", "Unknown City")
         risk_level = "Medium"
         priority = "P2"
         emergency_flag = False
+        evidence = []
+        recommended_actions = []
+        sources = ["Local Telemetry"]
         
-        # Check if any agent reported a high-threat indicator
+        # Check if any agent reported indicators
         for agent_name, result in agent_results.items():
             if result.get("status") == "success":
                 data = result.get("data", {})
-                # AQI threshold check
-                if "us_aqi" in data and float(data["us_aqi"]) > 150:
-                    risk_level = "High"
-                    priority = "P1"
-                # Rain threshold check
-                if "precipitation" in data and float(data.get("precipitation", 0)) > 100:
-                    risk_level = "Critical"
-                    priority = "P0"
-                    emergency_flag = True
-                    
+                sources.append(agent_name)
+                
+                # Weather data parsing
+                if agent_name == "Weather Agent":
+                    current = data.get("current", {})
+                    temp = current.get("temperature_2m")
+                    wind = current.get("wind_speed_10m")
+                    if temp is not None:
+                        evidence.append(f"Temperature recorded at {temp}°C")
+                        if temp >= 38:
+                            risk_level = "High"
+                            priority = "P1"
+                            recommended_actions.append("Issue heat warnings and prepare hydration spots.")
+                    if wind is not None:
+                        evidence.append(f"Wind speed observed at {wind} km/h")
+                        if wind > 30:
+                            recommended_actions.append("Advise residents against high-wind exposure.")
+                            
+                # AQI data parsing
+                elif agent_name == "AQI Agent":
+                    current = data.get("current", {})
+                    aqi_val = current.get("us_aqi")
+                    if aqi_val is not None:
+                        evidence.append(f"Air quality index reported at {aqi_val}")
+                        if aqi_val > 150:
+                            risk_level = "High"
+                            priority = "P1"
+                            recommended_actions.append("Recommend N95 masks for outdoor workers.")
+                        elif aqi_val > 100:
+                            recommended_actions.append("Sensitive groups should limit prolonged outdoor time.")
+                            
+                # Crime data parsing
+                elif agent_name == "Crime Agent":
+                    total_records = data.get("total_records")
+                    if total_records is not None:
+                        evidence.append(f"Recent crime index has {total_records} local cases.")
+                        
+                # Hospital data parsing
+                elif agent_name == "Hospital Agent":
+                    total_hosp = data.get("total_hospitals")
+                    if total_hosp is not None:
+                        evidence.append(f"Healthcare grid contains {total_hosp} hospital facility hubs.")
+
+        # Default cleanups
+        if not evidence:
+            evidence = [f"Retrieved baseline indicators for {location}"]
+        if not recommended_actions:
+            recommended_actions = ["Maintain normal monitoring of emergency networks."]
+            
+        reasoning = f"Synthesized telemetry indicators for {location} resulting in a {risk_level.lower()}-risk level status."
+        
         return {
             "Risk Level": risk_level,
             "Confidence Score": 0.80,
-            "Evidence": ["Aggregated dataset entries", "Live API endpoints"],
-            "Reasoning": "Synthesized telemetries across active domain layers.",
+            "Evidence": evidence,
+            "Reasoning": reasoning,
             "Priority": priority,
-            "Affected Areas": ["Metropolitan Core Zones"],
-            "Recommended Actions": ["Enable visual risk indicators", "Alert civic disaster services"],
-            "Sources Used": ["Open-Meteo API", "Local Crime Dataset", "IMD Subdivision Data"],
+            "Affected Areas": [location],
+            "Recommended Actions": recommended_actions,
+            "Sources Used": list(set(sources)),
             "Emergency Level": emergency_flag
         }

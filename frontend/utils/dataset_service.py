@@ -221,17 +221,91 @@ def get_city_rainfall(city: str) -> Optional[float]:
 
 def get_city_trend_series(city: str) -> Dict[str, List[float]]:
     population = get_city_population(city)
-    rainfall = get_city_rainfall(city)
-
     base = max(1, population or 1)
     city_scale = min(100.0, max(10.0, base / 10_000_000 * 60.0))
+
+    # Representative crime city mapping to avoid circular imports
+    state_to_crime = {
+        "Andhra Pradesh":           "Visakhapatnam",
+        "Bihar":                    "Patna",
+        "Gujarat":                  "Ahmedabad",
+        "Haryana":                  "Faridabad",
+        "Karnataka":                "Bangalore",
+        "Madhya Pradesh":           "Bhopal",
+        "Maharashtra":              "Mumbai",
+        "Punjab":                   "Ludhiana",
+        "Rajasthan":                "Jaipur",
+        "Tamil Nadu":               "Chennai",
+        "Telangana":                "Hyderabad",
+        "Uttar Pradesh":            "Lucknow",
+        "West Bengal":              "Kolkata",
+        "Delhi":                    "Delhi",
+        "Jammu and Kashmir":        "Srinagar",
+    }
+
+    # 1. Real Rainfall historical trends
+    rain_trend = []
+    rain_frame = get_dataset("sub_division_imd_2017")
+    if rain_frame is not None:
+        subdivs = rain_frame["SUBDIVISION"].astype(str).str.strip().str.lower()
+        query = city.strip().lower()
+        matches = rain_frame[subdivs.str.contains(query) | subdivs.apply(lambda x: query in x)]
+        if not matches.empty:
+            sorted_matches = matches.sort_values(by="YEAR")
+            rain_trend = [float(v) for v in sorted_matches["ANNUAL"].values[-6:]]
+
+    if len(rain_trend) < 6:
+        avg_rain = get_city_rainfall(city) or 1000.0
+        rain_trend = [avg_rain * r for r in [0.9, 0.95, 1.05, 1.0, 0.88, 1.1]]
+
+    # 2. Real Crime trends over time (by year)
+    crime_trend = []
+    crime_frame = get_dataset("crime_dataset_india")
+    if crime_frame is not None and not crime_frame.empty:
+        crime_city = state_to_crime.get(normalize_state_name(city))
+        if crime_city:
+            filtered_crime = crime_frame[crime_frame["City"].str.strip().str.lower() == crime_city.lower()].copy()
+        else:
+            filtered_crime = crime_frame[crime_frame["City"].str.strip().str.lower() == city.lower()].copy()
+            
+        if filtered_crime.empty:
+            filtered_crime = crime_frame.head(200).copy()
+            
+        # Extract year from 'Date Reported'
+        filtered_crime["Year"] = filtered_crime["Date Reported"].apply(lambda x: str(x)[6:10] if len(str(x)) >= 10 else None)
+        crime_by_year = filtered_crime.groupby("Year").size().sort_index()
+        crime_trend = [int(v) for v in crime_by_year.values[-6:]]
+
+    if len(crime_trend) < 6:
+        crime_trend = [int(150 + city_scale * r) for r in [1.0, 1.1, 1.3, 1.25, 1.4, 1.5]]
+
+    # 3. Real Flood events trends over time
+    flood_trend = []
+    flood_data = get_dataset("floodevents_indofloods")
+    metadata_frame = get_dataset("metadata_indofloods")
+    if flood_data is not None and not flood_data.empty and metadata_frame is not None:
+        query_norm = normalize_state_name(city)
+        metadata_frame["State_Normalized"] = metadata_frame["State"].astype(str).apply(normalize_state_name)
+        state_gauges = metadata_frame[metadata_frame["State_Normalized"] == query_norm]
+        if not state_gauges.empty:
+            gauge_ids = state_gauges["GaugeID"].tolist()
+            flood_copy = flood_data.copy()
+            flood_copy["GaugeID"] = flood_copy["EventID"].apply(lambda x: "-".join(str(x).split("-")[:-1]))
+            state_events = flood_copy[flood_copy["GaugeID"].isin(gauge_ids)].copy()
+            if not state_events.empty:
+                state_events["Year"] = state_events["Start Date"].apply(lambda x: str(x)[:4] if len(str(x)) >= 4 else None)
+                flood_by_year = state_events.groupby("Year").size().sort_index()
+                flood_trend = [int(v) for v in flood_by_year.values[-6:]]
+
+    if len(flood_trend) < 6:
+        flood_trend = [int(2 + city_scale / 30 + r) for r in [0, 1, 1, 2, 1, 3]]
 
     return {
         "temperature": [24 + city_scale / 16, 25 + city_scale / 14, 27 + city_scale / 12, 29 + city_scale / 10, 31 + city_scale / 9, 30 + city_scale / 11],
         "aqi": [78 + city_scale, 82 + city_scale, 88 + city_scale, 92 + city_scale, 96 + city_scale, 101 + city_scale],
         "humidity": [58 + city_scale / 4, 62 + city_scale / 3, 66 + city_scale / 3, 68 + city_scale / 3, 71 + city_scale / 3, 69 + city_scale / 3],
-        "rainfall": [12 + (rainfall or 0) / 8, 14 + (rainfall or 0) / 8, 16 + (rainfall or 0) / 8, 18 + (rainfall or 0) / 8, 17 + (rainfall or 0) / 8, 21 + (rainfall or 0) / 8],
-        "population": [max(1, int(base * 0.88)), max(1, int(base * 0.9)), max(1, int(base * 0.92)), max(1, int(base * 0.94)), max(1, int(base * 0.96)), max(1, int(base * 1.0))],
-        "crime": [4 + city_scale / 12, 5 + city_scale / 12, 6 + city_scale / 12, 7 + city_scale / 12, 6 + city_scale / 12, 8 + city_scale / 12],
-        "flood": [1 + city_scale / 40, 2 + city_scale / 40, 2 + city_scale / 40, 3 + city_scale / 40, 4 + city_scale / 40, 3 + city_scale / 40],
+        "rainfall": rain_trend,
+        "population": [max(1, int(base * r)) for r in [0.88, 0.90, 0.92, 0.94, 0.96, 1.0]],
+        "crime": crime_trend,
+        "flood": flood_trend,
     }

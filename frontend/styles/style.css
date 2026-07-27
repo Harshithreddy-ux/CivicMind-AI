@@ -578,3 +578,97 @@ section[data-testid="stSidebar"] {
     color: var(--text-muted);
     line-height: 1.5;
 }
+
+/* =========================================
+   Mobile Optimization & Layout Flexibility
+   ========================================= */
+@media (max-width: 768px) {
+    .hero-shell {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.2rem;
+        padding: 1.5rem;
+    }
+    
+    .title-row {
+        gap: 1rem;
+    }
+    
+    .page-title {
+        font-size: 1.5rem !important;
+    }
+    
+    .page-subtitle {
+        font-size: 0.85rem !important;
+    }
+    
+    .hero-meta {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .report-grid {
+        grid-template-columns: 1fr !important;
+        gap: 8px;
+    }
+
+    .cm-card {
+        padding: 1.2rem;
+    }
+    
+    .cm-value {
+        font-size: 1.8rem;
+    }
+    
+    .health-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+        padding: 1.2rem;
+    }
+    
+    /* Optimize map size on small screens */
+    .leaflet-container {
+        height: 380px !important;
+    }
+}
+
+/* =========================================
+   Premium Animations & Dynamic Hover Effects
+   ========================================= */
+.cm-card, .health-card, .ai-shell, .status-tile {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s ease !important;
+}
+
+.cm-card:hover, .health-card:hover {
+    transform: translateY(-5px) scale(1.015);
+    box-shadow: 0 15px 35px rgba(0, 229, 255, 0.12), var(--shadow-subtle) !important;
+    border-color: rgba(0, 229, 255, 0.25) !important;
+}
+
+.status-tile {
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.status-tile:hover {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border-color: rgba(94, 231, 255, 0.2) !important;
+    transform: scale(1.01);
+}
+
+.pill {
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.pill:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+}
+
+/* Page fade transitions on content blocks */
+.block-container > div {
+    animation: fade-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
