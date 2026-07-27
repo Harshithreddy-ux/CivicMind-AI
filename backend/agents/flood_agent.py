@@ -52,10 +52,11 @@ class FloodAgent(BaseAgent):
             state_norm = normalize_state_name(location)
             
             # Load flood datasets
-            flood_data = load_flood_data()
+            flood_data = load_flood_data(location)
             events_df = flood_data.get("events", pd.DataFrame())
             catchment_df = flood_data.get("catchment", pd.DataFrame())
             metadata_df = flood_data.get("metadata", pd.DataFrame())
+
             
             if metadata_df.empty:
                 return self.format_error(Exception("Flood metadata unavailable."))
@@ -99,7 +100,7 @@ class FloodAgent(BaseAgent):
             
             # 5. Fetch live weather precipitation
             weather_service = WeatherService()
-            weather_resp = weather_service.get_weather(location)
+            weather_resp = await weather_service.get_weather(location)
             live_precip = 0.0
             if weather_resp and "current" in weather_resp:
                 live_precip = float(weather_resp["current"].get("precipitation", 0.0))

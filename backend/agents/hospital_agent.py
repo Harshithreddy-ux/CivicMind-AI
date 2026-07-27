@@ -46,11 +46,11 @@ def normalize_state_name(state: str) -> str:
 class HospitalAgent(BaseAgent):
     async def process(self, context: dict) -> dict:
         try:
-            df = load_hospital_data()
+            location = context.get("location", "Unknown")
+            df = load_hospital_data(location)
             if df.empty:
                 return self.format_error(Exception("Hospital dataset unavailable."))
-            
-            location = context.get("location", "Unknown")
+
             query_norm = normalize_state_name(location)
             
             # Filter matches using normalized state comparison

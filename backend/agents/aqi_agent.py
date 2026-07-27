@@ -8,7 +8,7 @@ class AQIAgent(BaseAgent):
     async def process(self, context: dict) -> dict:
         location = context.get("location", "Unknown")
         try:
-            data = self.service.get_aqi(location)
+            data = await self.service.get_aqi(location)
             if not data:
                 return self.format_error(Exception("AQI data not found."))
             return self.format_success(data, summary=f"Current AQI loaded for {location}.")

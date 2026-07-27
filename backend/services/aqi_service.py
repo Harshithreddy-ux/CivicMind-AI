@@ -1,14 +1,11 @@
-import requests
+import httpx
 
 from config.cities import CITIES
 
-
 class AQIAPI:
-
     BASE_URL = "https://air-quality-api.open-meteo.com/v1/air-quality"
 
-    def get_aqi(self, city):
-
+    async def get_aqi(self, city):
         city_data = CITIES.get(city)
 
         if city_data is None:
@@ -24,17 +21,15 @@ class AQIAPI:
         }
 
         try:
-
-            response = requests.get(
-                self.BASE_URL,
-                params=params,
-                timeout=10
-            )
-
-            if response.status_code == 200:
-                return response.json()
-
+            async with httpx.AsyncClient() as client:
+                response = await client.get(
+                    self.BASE_URL,
+                    params=params,
+                    timeout=10.0
+                )
+                if response.status_code == 200:
+                    return response.json()
         except Exception as e:
-            print(e)
+            print(f"AQI API error: {e}")
 
         return None

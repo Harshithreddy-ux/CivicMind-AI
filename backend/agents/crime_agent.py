@@ -24,11 +24,11 @@ STATE_TO_CRIME_CITY = {
 class CrimeAgent(BaseAgent):
     async def process(self, context: dict) -> dict:
         try:
-            df = load_crime_data()
+            location = context.get("location", "Unknown")
+            df = load_crime_data(location)
             if df.empty:
                 return self.format_error(Exception("Crime dataset unavailable."))
-            
-            location = context.get("location", "Unknown")
+
             crime_city = STATE_TO_CRIME_CITY.get(location)
             
             if crime_city:

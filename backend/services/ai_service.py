@@ -1,22 +1,25 @@
 import os
 import json
 import re
+import logging
 from typing import Any, Dict
-
 from dotenv import load_dotenv
-import google.generativeai as genai
+from google import genai
 
 load_dotenv()
-
+logger = logging.getLogger("civicmind.ai")
 
 class AIService:
-
     def __init__(self):
-        self.model = None
+        self.client = None
         api_key = os.getenv("GEMINI_API_KEY")
+        self.model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
         if api_key:
-            genai.configure(api_key=api_key)
-            self.model = genai.GenerativeModel("gemini-2.5-flash")
+            try:
+                self.client = genai.Client(api_key=api_key)
+                logger.info(f"AIService initialized with model: {self.model_name}")
+            except Exception as e:
+                logger.error(f"Failed to initialize Gemini GenAI client: {e}")
 
     def _fallback_analysis(self, city_data: Dict[str, Any]) -> Dict[str, Any]:
         weather = city_data.get("weather") or {}
@@ -84,8 +87,8 @@ class AIService:
             ]
         }
 
-    def analyze_city(self, city_data):
-        if self.model is None:
+    async def analyze_city(self, city_data: Dict[str, Any]) -> Dict[str, Any]:
+        if self.client is None:
             return self._fallback_analysis(city_data)
 
         question = city_data.get("question")
@@ -112,11 +115,15 @@ Note: risk_level must be one of LOW, MEDIUM, HIGH. confidence must be an integer
 """
 
         try:
-            response = self.model.generate_content(prompt)
+            response = await self.client.aio.models.generate_content(
+                model=self.model_name,
+                contents=prompt
+            )
             content = response.text
             match = re.search(r'\{.*\}', content, re.DOTALL)
             if match:
                 return json.loads(match.group(0))
             return self._fallback_analysis(city_data)
-        except Exception:
+        except Exception as e:
+            logger.error(f"Gemini API async call failed: {e}")
             return self._fallback_analysis(city_data)

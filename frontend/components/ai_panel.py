@@ -43,8 +43,23 @@ details[open] summary {
     status_placeholder = st.empty()
     results_placeholder = st.empty()
     
+    # Initialize with beautiful skeleton loader placeholder
+    status_placeholder.markdown(
+        """
+        <div style='font-size:0.85rem; line-height:1.6; padding-top: 10px;'>
+            <div style='color:#00FFFF; font-weight:600; margin-bottom:8px; animation: blink 1.5s infinite;'>🤖 Initializing Smart Agent Network...</div>
+            <div class='skeleton-loader' style='width: 40%; height: 20px; margin-bottom: 12px;'></div>
+            <div class='skeleton-loader' style='height: 14px;'></div>
+            <div class='skeleton-loader' style='height: 14px;'></div>
+            <div class='skeleton-loader' style='width: 85%; height: 14px;'></div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
     agents_status = {}
     report = None
+
     
     try:
         with requests.post(

@@ -1,12 +1,9 @@
-import requests
-
+import httpx
 
 class WeatherAPI:
-
     BASE_URL = "https://api.open-meteo.com/v1/forecast"
 
-    def get_weather(self, latitude: float, longitude: float):
-
+    async def get_weather(self, latitude: float, longitude: float):
         params = {
             "latitude": latitude,
             "longitude": longitude,
@@ -24,20 +21,14 @@ class WeatherAPI:
             ],
             "timezone": "auto"
         }
-
         try:
-            response = requests.get(
-                self.BASE_URL,
-                params=params,
-                timeout=10
-            )
-
-            response.raise_for_status()
-
-            return response.json()
-
+            async with httpx.AsyncClient() as client:
+                response = await client.get(
+                    self.BASE_URL,
+                    params=params,
+                    timeout=10.0
+                )
+                response.raise_for_status()
+                return response.json()
         except Exception as e:
-
-            return {
-                "error": str(e)
-            }
+            return {"error": str(e)}

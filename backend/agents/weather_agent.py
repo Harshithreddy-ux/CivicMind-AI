@@ -9,7 +9,7 @@ class WeatherAgent(BaseAgent):
     async def process(self, context: dict) -> dict:
         location = context.get("location", "Unknown")
         try:
-            data = self.service.get_weather(location)
+            data = await self.service.get_weather(location)
             if not data:
                 return self.format_error(Exception("Weather data not found."))
             return self.format_success(data, summary=f"Current weather loaded for {location}.")

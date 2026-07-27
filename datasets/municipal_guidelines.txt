@@ -1,0 +1,33 @@
+CIVICMIND AI - SMART CITY MUNICIPAL SOP GUIDE & DISASTER PROTOCOLS
+
+1. DISASTER PROTOCOL: FLOOD MANAGEMENT
+- Severity Classification:
+  * Minor: Water depth below 0.3 meters. Action: Clear local stormwater inlets, maintain street sweeper schedules.
+  * Major / Warning Level: Water depth 0.3m to 0.7m. Action: Dispatch emergency drainage pumps, activate catchment barriers, notify traffic diversions.
+  * Critical / Danger Level: Water depth above 0.7m. Action: Issue emergency notifications to resident handsets, deploy flood rescue teams, open municipal relief centers.
+- Operational Guidelines:
+  * Gauges reporting values above Danger Level require automatic status upgrades to "Critical".
+  * In case of torrential rainfall (precipitation > 50mm in 24 hours), activate the bypass channels of the main subdivisions.
+  * Coordinate hospital ambulance routing to bypass submerged road links.
+
+2. OPERATIONAL PROTOCOL: LAW AND ORDER / CRIME PREVENTION
+- City Patrol Operations:
+  * High crime densities (e.g. theft, cybercrime, assault) require active mobile patrol beats deployed within 15 minutes.
+  * High-risk zones must have active smart CCTV anomaly-detection streams.
+  * Municipal police dispatch is graded by priority: P0 (Active threats - immediate dispatch), P1 (Property damage - response within 10 mins), P2 (Non-emergency investigative followups).
+- Command Center Integration:
+  * Route crime locations to the central GIS mapping dashboard to dynamically assign patrol coverage.
+
+3. ENVIRONMENTAL PROTOCOL: AIR QUALITY (AQI) MANAGEMENT
+- AQI Thresholds & Mandated Interventions:
+  * AQI 0 - 50 (Good): No action required.
+  * AQI 51 - 100 (Moderate): General warnings for highly sensitive groups.
+  * AQI 101 - 150 (Sensitive / Elevated): Limit prolonged outdoor exercises for children and elderly.
+  * AQI 151 - 200 (High / Unhealthy): Limit construction operations. Deploy smog towers and water sprinkling vehicles on main corridors.
+  * AQI > 200 (Critical / Severe): Suspend outdoor construction completely, institute odd-even vehicle routing, recommend indoor telecommuting for private sectors.
+
+4. HEALTHCARE PROTOCOL: MEDICAL EMERGENCY CAPACITY
+- Bed Availability & Facility Management:
+  * Maintain real-time telemetry of ICU and general ward beds.
+  * If a district's hospital directory reports less than 10% bed vacancy, activate the overflow ward protocols.
+  * Direct non-critical patients to primary care centers to keep tertiary emergency care rooms unblocked.

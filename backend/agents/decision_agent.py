@@ -1,5 +1,5 @@
 from backend.agents.base import BaseAgent
-import google.generativeai as genai
+from google import genai
 import os
 import json
 import re
@@ -14,8 +14,8 @@ class DecisionAgent(BaseAgent):
             if not api_key:
                 return self.format_success(data=self._mock_decision(context, agent_results), summary="Decision Engine completed local mock synthesis.")
             
-            genai.configure(api_key=api_key)
-            model = genai.GenerativeModel('gemini-2.5-flash')
+            client = genai.Client(api_key=api_key)
+            model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
             
             prompt = f"""
             You are the core Decision Engine for a Smart City Platform.
@@ -38,7 +38,10 @@ class DecisionAgent(BaseAgent):
             Output ONLY valid JSON.
             """
             
-            response = model.generate_content(prompt)
+            response = await client.aio.models.generate_content(
+                model=model_name,
+                contents=prompt
+            )
             text = response.text.replace('```json', '').replace('```', '').strip()
             
             # Extract JSON block using regex if model outputs conversational text

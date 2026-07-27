@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Any
 import pandas as pd
 import math
+from database.db_manager import DatabaseManager
 
 from config.cities import CITIES
 from backend.services.enricher import enrich_hospital_coordinates, get_enriched_flood_gauges
@@ -61,22 +62,27 @@ def normalize_state_name(state: str) -> str:
 
 @lru_cache(maxsize=1)
 def load_all_datasets() -> Dict[str, pd.DataFrame]:
-    datasets: Dict[str, pd.DataFrame] = {}
-    if not DATASETS_ROOT.exists():
-        return datasets
-
-    # Load all CSV files completely (removed the truncation of hospital directory to prevent missing states)
-    for csv_path in sorted(DATASETS_ROOT.glob("*.csv")):
-        try:
-            key = csv_path.stem.lower()
-            datasets[key] = pd.read_csv(csv_path, low_memory=False)
-        except Exception:
-            continue
-
-    return datasets
+    # Dummy implementation since we now query SQLite on-demand
+    return {}
 
 def get_dataset(name: str) -> Optional[pd.DataFrame]:
-    return load_all_datasets().get(name.lower())
+    """Loads a DataFrame directly from SQLite by table name (matching dataset stem names)."""
+    table_map = {
+        "hospital_directory": "hospitals",
+        "hospitals": "hospitals",
+        "crime_dataset_india": "crimes",
+        "floodevents_indofloods": "flood_events",
+        "catchment_characteristics_indofloods": "catchment",
+        "metadata_indofloods": "metadata",
+        "sub_division_imd_2017": "subdivision_rainfall"
+    }
+    table_name = table_map.get(name.lower(), name.lower())
+    conn = DatabaseManager.get_connection()
+    try:
+        # Construct DataFrame directly from SQL table
+        return pd.read_sql_query(f"SELECT * FROM {table_name}", conn)
+    except Exception:
+        return None
 
 def is_coordinates_sane(lat: float, lon: float, base_lat: float, base_lon: float) -> bool:
     """Verifies coordinates are within India boundaries and within a reasonable distance from state center."""

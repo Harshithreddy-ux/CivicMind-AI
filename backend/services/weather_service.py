@@ -7,15 +7,14 @@ class WeatherService:
     def __init__(self):
         self.weather_api = WeatherAPI()
 
-    def get_weather(self, city: str):
-
+    async def get_weather(self, city: str):
         if city not in CITIES:
             return None
 
         latitude = CITIES[city]["latitude"]
         longitude = CITIES[city]["longitude"]
 
-        return self.weather_api.get_weather(
+        return await self.weather_api.get_weather(
             latitude,
             longitude
         )
