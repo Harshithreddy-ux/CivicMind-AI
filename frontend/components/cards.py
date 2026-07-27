@@ -12,18 +12,27 @@ BACKEND = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
 
 @st.cache_data(ttl=300)
 def get_weather(city):
-
     try:
-
         response = requests.get(
             f"{BACKEND}/weather",
             params={"city": city},
             timeout=5,
         )
-
         if response.status_code == 200:
             return response.json()
+    except Exception:
+        pass
 
+    # Local in-process fallback
+    try:
+        import asyncio
+        from backend.services.weather_service import WeatherService
+        ws = WeatherService()
+        try:
+            loop = asyncio.get_event_loop()
+            return loop.run_until_complete(ws.get_weather(city))
+        except RuntimeError:
+            return asyncio.run(ws.get_weather(city))
     except Exception:
         pass
 
@@ -36,18 +45,27 @@ def get_weather(city):
 
 @st.cache_data(ttl=300)
 def get_aqi(city):
-
     try:
-
         response = requests.get(
             f"{BACKEND}/aqi",
             params={"city": city},
             timeout=5,
         )
-
         if response.status_code == 200:
             return response.json()
+    except Exception:
+        pass
 
+    # Local in-process fallback
+    try:
+        import asyncio
+        from backend.services.aqi_service import AQIAPI
+        asv = AQIAPI()
+        try:
+            loop = asyncio.get_event_loop()
+            return loop.run_until_complete(asv.get_aqi(city))
+        except RuntimeError:
+            return asyncio.run(asv.get_aqi(city))
     except Exception:
         pass
 

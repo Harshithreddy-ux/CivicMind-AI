@@ -92,8 +92,14 @@ def load_city_context(city: str):
             aqi = response.json()
     except Exception:
         try:
-            from backend.services.aqi_service import aqi_service
-            aqi = aqi_service.get_aqi(city)
+            from backend.services.aqi_service import AQIAPI
+            import asyncio
+            asv = AQIAPI()
+            try:
+                loop = asyncio.get_event_loop()
+                aqi = loop.run_until_complete(asv.get_aqi(city))
+            except RuntimeError:
+                aqi = asyncio.run(asv.get_aqi(city))
         except Exception:
             pass
     return weather, aqi
