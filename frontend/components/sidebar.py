@@ -17,19 +17,14 @@ def show_sidebar():
             list(CITIES.keys()),
             help="Select the region to analyze"
         )
+        pages = ["Home", "Dashboard", "Analytics", "City Intelligence", "Forecast", "AI Assistant", "Reports", "Settings"]
+        current_page = st.session_state.get("selected_page", "Home")
+        default_idx = pages.index(current_page) if current_page in pages else 0
+
         # Premium option menu configuration
         selected_page = option_menu(
             menu_title=None,
-            options=[
-                "Home",
-                "Dashboard",
-                "Analytics",
-                "City Intelligence",
-                "Forecast",
-                "AI Assistant",
-                "Reports",
-                "Settings"
-            ],
+            options=pages,
             icons=[
                 "house",
                 "grid-1x2",
@@ -40,7 +35,7 @@ def show_sidebar():
                 "file-text",
                 "sliders"
             ],
-            default_index=0,
+            default_index=default_idx,
             styles={
                 "container": {
                     "padding": "0.5rem", 
@@ -81,5 +76,7 @@ def show_sidebar():
             """,
             unsafe_allow_html=True
         )
+
+        st.session_state.selected_page = selected_page
 
     return selected_page, selected_city

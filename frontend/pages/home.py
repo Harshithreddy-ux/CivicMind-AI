@@ -166,21 +166,45 @@ def render_home():
                 </div>
                 <div class='tech-item'>
                     <div class='tech-icon'>🧠</div>
-                    <div class='tech-name'>Gemini 2.5</div>
+
+    # ── Product Mockup Preview Terminal ──────────────────────────────────────
+    with st.container(border=True):
+        st.markdown(
+            """
+            <h3 style='margin-top:0; color:#fff; font-size:1.15rem; margin-bottom:0.5rem;'>Active Telemetry Logs</h3>
+            <div style='background: #0B1426; border: 1px solid rgba(0, 229, 255, 0.15); border-radius: 8px; padding: 1.2rem; box-shadow: inset 0 4px 12px rgba(0,0,0,0.5);'>
+                <div style='display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 10px;'>
+                    <div style='display: flex; gap: 6px;'>
+                        <span style='width: 8px; height: 8px; border-radius: 50%; background: #FF5C75; display: inline-block;'></span>
+                        <span style='width: 8px; height: 8px; border-radius: 50%; background: #FF8A3D; display: inline-block;'></span>
+                        <span style='width: 8px; height: 8px; border-radius: 50%; background: #37D67A; display: inline-block;'></span>
+                    </div>
+                    <span style='font-size: 0.68rem; color: #6B7280; font-family: monospace;'>civicmind-terminal-v1.0.0</span>
                 </div>
-                <div class='tech-item'>
-                    <div class='tech-icon'>🗄</div>
-                    <div class='tech-name'>SQLite 3</div>
-                </div>
-                <div class='tech-item'>
-                    <div class='tech-icon'>🗺</div>
-                    <div class='tech-name'>Folium GIS</div>
-                </div>
-                <div class='tech-item'>
-                    <div class='tech-icon'>🧪</div>
-                    <div class='tech-name'>Pytest Suite</div>
+                <div style='font-family: monospace; font-size: 0.78rem; color: #37D67A; line-height: 1.6;'>
+                    <span style='color: #7C4DFF;'>$</span> civicmind status --live<br>
+                    <span style='color: #A5B6D6;'>[INFO] Querying active state nodes... OK</span><br>
+                    <span style='color: #A5B6D6;'>[INFO] Parsing sensor telemetry... OK</span><br>
+                    <span style='color: #00E5FF;'>[TELEMETRY] SQLite: 32,543 hospital records mapped with local spatial indexes</span><br>
+                    <span style='color: #00E5FF;'>[TELEMETRY] OpenMeteo: Async HTTPX weather client status: 200 OK</span><br>
+                    <span style='color: #00E5FF;'>[TELEMETRY] Gemini API: RAG SOP retrieval consensus verified</span><br>
+                    <span style='color: #37D67A;'>[STATUS] Resiliency Index: 92% (Normal / Safe Flow)</span>
                 </div>
             </div>
             """,
             unsafe_allow_html=True
         )
+
+    st.markdown("<div style='height: 1.5rem;'></div>", unsafe_allow_html=True)
+
+    # ── Interactive Call-To-Action (CTA) Page Redirect Toggles ───────────────
+    st.markdown("### Launch Operational Suite")
+    c_btn1, c_btn2 = st.columns(2)
+    with c_btn1:
+        if st.button("🚀 Launch Decision Dashboard", key="cta_dashboard", use_container_width=True):
+            st.session_state.selected_page = "Dashboard"
+            st.rerun()
+    with c_btn2:
+        if st.button("🧠 Open AI Assistant", key="cta_assistant", use_container_width=True):
+            st.session_state.selected_page = "AI Assistant"
+            st.rerun()
