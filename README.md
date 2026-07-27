@@ -1,283 +1,353 @@
+<div align="center">
+
+<img src="assets/logo.svg" width="120" alt="CivicMind AI Logo"/>
+
 # CivicMind AI
 
-<p align="center">
-<img src="assets/logo.svg" width="180"/>
+### Enterprise Smart City Decision Intelligence Platform
 
-# Enterprise Smart City Decision Intelligence Platform
-### Multi-Agent AI • GIS Intelligence • Decision Support • Disaster Analytics
-</p>
+*Multi-Agent AI · Real-Time GIS · Disaster Analytics · Urban Decision Support*
 
 ---
 
-# Overview
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.30+-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![SQLite](https://img.shields.io/badge/SQLite-3-003B57?style=flat-square&logo=sqlite&logoColor=white)](https://sqlite.org)
+[![Gemini](https://img.shields.io/badge/Gemini-2.5_Flash-4285F4?style=flat-square&logo=google&logoColor=white)](https://ai.google.dev)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/Harshithreddy-ux/CivicMind-AI?style=flat-square)](https://github.com/Harshithreddy-ux/CivicMind-AI/commits/main)
+[![Stars](https://img.shields.io/github/stars/Harshithreddy-ux/CivicMind-AI?style=flat-square)](https://github.com/Harshithreddy-ux/CivicMind-AI/stargazers)
+[![Forks](https://img.shields.io/github/forks/Harshithreddy-ux/CivicMind-AI?style=flat-square)](https://github.com/Harshithreddy-ux/CivicMind-AI/network/members)
+[![Issues](https://img.shields.io/github/issues/Harshithreddy-ux/CivicMind-AI?style=flat-square)](https://github.com/Harshithreddy-ux/CivicMind-AI/issues)
 
-CivicMind AI is an enterprise-grade Smart City Decision Intelligence Platform designed to assist city administrators, emergency responders, disaster management teams, and urban planners with real-time insights, AI-powered recommendations, and geospatial analytics.
+**[Live Demo](https://civicmind-x8zrh8o23aahmfrymvd52j.streamlit.app) · [Documentation](docs/) · [Report Bug](https://github.com/Harshithreddy-ux/CivicMind-AI/issues) · [Request Feature](https://github.com/Harshithreddy-ux/CivicMind-AI/issues)**
 
-The platform combines multiple heterogeneous datasets with AI reasoning to generate actionable intelligence for public safety, disaster preparedness, healthcare accessibility, environmental monitoring, and infrastructure planning.
-
-Unlike conventional dashboards, CivicMind AI follows a **Multi-Agent Architecture**, where specialized AI agents collaborate to analyze diverse data sources before generating a final decision.
-
----
-
-# Key Features
-
-- **Multi-Agent Decision Intelligence:** Specialized domain agents executing concurrently to evaluate risk.
-- **Live Weather & AQI Monitoring:** Real-time environmental tracking via open APIs.
-- **GIS Spatial Intelligence:** Folium-based overlay maps showing healthcare hubs and hazard zones.
-- **Retrieval-Augmented Generation (RAG):** Semantic lookup of municipal guidelines and disaster procedures.
-- **Municipal Report Exporting:** Interactive browser downloads for markdown, CSV, and JSON Daily summaries.
+</div>
 
 ---
 
-# System Architecture
+## What is CivicMind AI?
 
-The high-level system architecture of CivicMind AI is detailed below, highlighting the unified layers from frontend Streamlit views, through the FastAPI coordinator and domain agent orchestration, down to the regional databases and GCP infrastructure.
+CivicMind AI is a production-grade **Smart City Decision Intelligence Platform** that helps city administrators, emergency responders, and urban planners make faster, better-informed decisions using real-time data.
 
-<p align="center">
-  <img src="assets/system_architecture.png" alt="CivicMind AI System Architecture" width="900"/>
-</p>
+Instead of a conventional dashboard, CivicMind AI uses a **Multi-Agent AI Architecture** — specialized Gemini-powered agents work in parallel to analyze weather, air quality, crime patterns, hospital capacity, and flood risk before synthesizing a final actionable recommendation.
 
----
-
-# Process Workflow
-
-Below is the dynamic workflow flowchart demonstrating how a user's operational request flows through the Multi-Agent orchestrator, gets mapped to parallel domain-expert agents, and is synthesized via Gemini 2.5 Flash and retrieval models to output executive plans.
-
-<p align="center">
-  <img src="assets/workflow_chart.png" alt="CivicMind AI Process Workflow Flowchart" width="800"/>
-</p>
+> **Built for Hack2Skill, deployed on Streamlit Community Cloud, and open for contributions.**
 
 ---
 
-# Multi-Agent System
+## ✨ Key Features
 
-The platform includes specialized AI agents:
-
-| Agent | Responsibility |
-|---------|---------------|
-| Supervisor Agent | Task Routing |
-| Coordinator Agent | Parallel Execution |
-| Weather Agent | Weather Intelligence |
-| AQI Agent | Air Quality |
-| Flood Agent | Flood Analytics |
-| Crime Agent | Crime Intelligence |
-| Hospital Agent | Healthcare Analysis |
-| Population Agent | Population Insights |
-| GIS Agent | Spatial Intelligence |
-| Decision Agent | Final Recommendations |
+| Feature | Description |
+|---|---|
+| 🤖 **Multi-Agent AI** | Parallel domain agents (Weather, AQI, Crime, Hospital, Flood) collaborating via Supervisor orchestration |
+| 🌦 **Real-Time Weather & AQI** | Live telemetry via Open-Meteo & WAQI APIs with async HTTPX client |
+| 🗺 **GIS City Intelligence** | Folium maps with clustered hospital markers, flood zones, and AQI overlays |
+| 📊 **Analytics Dashboard** | Plotly-powered charts with animated transitions and CSV/PNG export |
+| 🔮 **7-Day Forecast** | Temperature, humidity, and AQI trend projections |
+| 📋 **Municipal Reports** | One-click export in Markdown, CSV, and JSON |
+| 🧠 **RAG Decision Engine** | Retrieval-Augmented Generation over municipal SOP guidelines |
+| 🗄 **SQLite Data Layer** | 32,000+ hospital records indexed for sub-millisecond queries |
+| 🔒 **Graceful Fallbacks** | Every API failure handled silently — app never crashes |
 
 ---
 
-# GIS Capabilities
+## 📸 Screenshots
 
-- OpenStreetMap Integration
-- Dynamic State-Level Analysis
-- Hospital Layer
-- Flood Layer
-- Crime Layer
-- Population Layer
-- Weather Layer
-- AQI Layer
-- Interactive Tooltips
-- Clustered Markers
-- Spatial Intelligence
+<details>
+<summary><b>Click to expand screenshots</b></summary>
+
+### 🏠 Home — Landing Page
+> Animated hero with real metrics, technology showcase, and architecture overview.
+
+### 📊 Dashboard
+> Live weather, AQI, risk score, and city status cards with real-time telemetry.
+
+### 🗺 City Intelligence — GIS Map
+> Interactive Folium map with hospital clusters, flood overlays, and marker tooltips.
+
+### 📈 Analytics
+> Historical trend charts for crime, population, rainfall, and temperature.
+
+### 🔮 Forecast
+> 7-day multi-metric weather and AQI projections rendered as animated Plotly charts.
+
+### 🧠 AI Assistant
+> Gemini-powered conversational interface with source attribution and confidence scoring.
+
+### 📋 Reports
+> Downloadable executive reports with base64-encoded anchor buttons.
+
+</details>
 
 ---
 
-# Dashboard Modules
+## 🏗 System Architecture
 
-- Dashboard
-- Analytics
-- City Intelligence
-- Forecast
-- AI Assistant
-- Reports
-- Settings
-
----
-
-# Project Structure
-
-```text
-CivicMind-AI
-│
-├── assets/
-├── backend/
-│   ├── agents/
-│   ├── services/
-│   ├── rag/
-│   ├── routers/
-│   ├── data_sources/
-│   └── main.py
-│
-├── frontend/
-│   ├── components/
-│   ├── pages/
-│   ├── styles/
-│   └── app.py
-│
-├── datasets/
-├── config/
-├── tests/
-├── requirements.txt
-└── README.md
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    STREAMLIT FRONTEND                        │
+│  Home · Dashboard · Analytics · City Intelligence           │
+│  Forecast · AI Assistant · Reports · Settings               │
+└─────────────────────┬───────────────────────────────────────┘
+                      │  HTTP / Direct Import Fallback
+┌─────────────────────▼───────────────────────────────────────┐
+│                   FASTAPI BACKEND (port 8000)                │
+│  /api/weather  /api/aqi  /api/analysis  /api/hospitals       │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+┌─────────────────────▼───────────────────────────────────────┐
+│              SUPERVISOR AGENT ROUTER                         │
+│                                                             │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌───────────────┐  │
+│  │ Weather  │ │  AQI     │ │  Crime   │ │   Hospital    │  │
+│  │  Agent   │ │  Agent   │ │  Agent   │ │    Agent      │  │
+│  └──────────┘ └──────────┘ └──────────┘ └───────────────┘  │
+│  ┌──────────┐ ┌────────────────────────────────────────┐    │
+│  │  Flood   │ │         Decision Agent (Gemini 2.5)    │    │
+│  │  Agent   │ │    + RAG SOP Index (FAISS + Embeddings)│    │
+│  └──────────┘ └────────────────────────────────────────┘    │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+┌─────────────────────▼───────────────────────────────────────┐
+│                    DATA LAYER                                │
+│  SQLite (32k+ hospitals · crime · flood · population)        │
+│  External APIs: Open-Meteo · WAQI · OpenStreetMap            │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-# Datasets
+## 🧑‍💻 Agent System
 
-The project integrates real-world datasets including:
-
-- Hospital Directory
-- Crime Dataset
-- Flood Events
-- Catchment Characteristics
-- IMD Rainfall
-- Population Density
-- OpenStreetMap
-- Administrative Boundaries
-
-Large GIS files are excluded from GitHub due to repository size limitations.
+| Agent | Domain | Data Sources |
+|---|---|---|
+| **Supervisor** | Task Routing & Orchestration | All agents |
+| **Coordinator** | Parallel Execution Control | All agents |
+| **Weather Agent** | Temperature, Wind, Humidity | Open-Meteo API |
+| **AQI Agent** | Air Quality Index, PM2.5 | WAQI API |
+| **Flood Agent** | Flood events, Rainfall, Catchment | IndoFlood DB, IMD Rainfall |
+| **Crime Agent** | Crime patterns, Incident mapping | Crime Dataset India |
+| **Hospital Agent** | Healthcare capacity, Accessibility | Hospital Directory (32k+) |
+| **Decision Agent** | Final synthesis + Recommendations | Gemini 2.5 Flash + RAG |
 
 ---
 
-# Technology Stack
+## 🛠 Technology Stack
 
-### Backend
-- FastAPI
-- Python
-- AsyncIO
-- Pandas
-- GeoPandas
-- Rasterio
-
-### AI
-- Gemini
-- FAISS
-- RAG
-- Multi-Agent Architecture
-
-### GIS
-- Folium
-- OpenStreetMap
-- GeoJSON
-- Raster Layers
-
-### Frontend
-- Streamlit
-- Plotly
-- HTML/CSS
-- JavaScript
+```
+Frontend        │  Streamlit 1.30+, Plotly, Folium, HTML/CSS
+Backend         │  FastAPI, Uvicorn, Pydantic v2, AsyncIO
+AI / ML         │  Google Gemini 2.5 Flash, FAISS, RAG Pipeline
+Database        │  SQLite 3 (indexed, 32k+ records)
+HTTP Client     │  HTTPX AsyncClient
+Mapping         │  Folium, OpenStreetMap, streamlit-folium
+Testing         │  Pytest, pytest-asyncio
+Data Science    │  Pandas, NumPy, GeoPandas
+Config          │  python-dotenv, Pydantic Settings
+CI/CD           │  GitHub Actions
+Deployment      │  Streamlit Community Cloud
+```
 
 ---
 
-# Installation
+## 🚀 Quick Start
 
-Clone repository
+### Prerequisites
+
+- Python 3.10 or higher
+- A [Google AI Studio](https://aistudio.google.com) API key (free)
+
+### 1. Clone
 
 ```bash
 git clone https://github.com/Harshithreddy-ux/CivicMind-AI.git
 cd CivicMind-AI
 ```
 
-Install dependencies
+### 2. Set up environment
+
+```bash
+# Copy example environment file
+cp .env.example .env
+
+# Edit .env and add your Gemini API key
+# GEMINI_API_KEY=your_key_here
+```
+
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Configure environment
+### 4. Run (choose one)
 
-```env
-GEMINI_API_KEY=YOUR_KEY
-```
-
-Start Backend
-
+**Option A — Backend + Frontend (full stack)**
 ```bash
-uvicorn backend.main:app
-```
+# Terminal 1
+uvicorn backend.main:app --reload --port 8000
 
-Start Frontend
-
-```bash
+# Terminal 2
 streamlit run frontend/app.py
 ```
 
----
-
-# Screenshots
-
-### 1. Operations Dashboard
-<p align="center">
-  <img src="assets/dashboard.png" alt="CivicMind AI Dashboard" width="900"/>
-</p>
-
-### 2. Historical Analytics
-<p align="center">
-  <img src="assets/analytics.png" alt="CivicMind AI Analytics" width="900"/>
-</p>
-
-### 3. Forecast Trends
-<p align="center">
-  <img src="assets/forecast.png" alt="CivicMind AI Forecast" width="900"/>
-</p>
-
-### 4. Municipal Reports
-<p align="center">
-  <img src="assets/reports.png" alt="CivicMind AI Reports" width="900"/>
-</p>
+**Option B — Frontend only (self-contained, no backend needed)**
+```bash
+streamlit run frontend/app.py
+```
+> The frontend automatically falls back to direct service calls if the backend is unreachable.
 
 ---
 
-# Future Roadmap
+## ⚙️ Environment Variables
 
-- IoT Sensor Integration
-- CCTV Analytics
-- Satellite Imagery
-- Predictive Flood Simulation
-- Traffic Prediction
-- Mobile Application
-- Real-time WebSocket Updates
-- Cloud Deployment
-- Kubernetes Support
-
----
-
-# Contributing
-
-Pull requests are welcome.
-
-For major changes, please open an issue first to discuss proposed improvements.
+| Variable | Required | Default | Description |
+|---|---|---|---|
+| `GEMINI_API_KEY` | ✅ Yes | — | Google Gemini API key from AI Studio |
+| `GEMINI_MODEL` | No | `gemini-2.5-flash` | Gemini model variant |
+| `BACKEND_URL` | No | `http://127.0.0.1:8000` | FastAPI backend URL |
+| `WAQI_TOKEN` | No | `demo` | WAQI AQI API token (optional) |
+| `REDIS_URL` | No | — | Redis URL for caching (optional) |
+| `LOG_LEVEL` | No | `INFO` | Logging verbosity |
 
 ---
 
-# License
+## 🌐 Deployment
 
-MIT License
+### Streamlit Community Cloud (Recommended)
+
+1. Fork this repository
+2. Go to [share.streamlit.io](https://share.streamlit.io)
+3. Connect your forked repository
+4. Set `GEMINI_API_KEY` in Streamlit Secrets
+5. Deploy — the app auto-installs dependencies and builds the SQLite database on first run
+
+### Local Production
+
+```bash
+# Backend
+uvicorn backend.main:app --host 0.0.0.0 --port 8000 --workers 2
+
+# Frontend
+streamlit run frontend/app.py --server.port 8501 --server.address 0.0.0.0
+```
 
 ---
 
-# Author
+## 🧪 Running Tests
+
+```bash
+pytest tests/ -v
+```
+
+---
+
+## 📁 Project Structure
+
+```
+CivicMind-AI/
+│
+├── .github/
+│   ├── workflows/
+│   │   └── ci.yml              # GitHub Actions CI
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
+│   └── pull_request_template.md
+│
+├── backend/
+│   ├── agents/                 # Domain AI agents
+│   ├── data_sources/           # API + dataset loaders
+│   ├── rag/                    # RAG pipeline (FAISS + embeddings)
+│   ├── routers/                # FastAPI route handlers
+│   ├── schemas/                # Pydantic validation models
+│   ├── services/               # AI, weather, AQI services
+│   └── main.py                 # FastAPI application entry
+│
+├── frontend/
+│   ├── components/             # Reusable UI components
+│   ├── pages/                  # Page modules (Dashboard, Analytics, etc.)
+│   ├── styles/                 # CSS design system
+│   ├── utils/                  # Dataset service helpers
+│   └── app.py                  # Streamlit application entry
+│
+├── config/                     # City definitions and configuration
+├── database/                   # SQLite manager and schema
+├── datasets/                   # CSV source data + municipal guidelines
+├── docs/                       # Project documentation
+├── tests/                      # Pytest test suite
+├── assets/                     # Visual assets (logo, screenshots)
+│
+├── .env.example                # Environment variable template
+├── requirements.txt            # Python dependencies
+├── CONTRIBUTING.md             # Contribution guide
+├── CODE_OF_CONDUCT.md          # Community standards
+├── SECURITY.md                 # Security policy
+├── CHANGELOG.md                # Version history
+└── README.md                   # This file
+```
+
+---
+
+## 🗺 Roadmap
+
+- [x] Multi-agent AI architecture
+- [x] Real-time weather and AQI monitoring
+- [x] GIS hospital and flood map layers
+- [x] RAG decision engine with SOP retrieval
+- [x] SQLite indexed data layer (32k+ records)
+- [x] Premium UI with dark/light mode
+- [x] Municipal report export (MD, CSV, JSON)
+- [x] Self-contained Streamlit Cloud deployment
+- [ ] WebSocket real-time sensor streaming
+- [ ] IoT sensor integration
+- [ ] Mobile application (Flutter)
+- [ ] Satellite imagery layer (ISRO/Bhoonidhi)
+- [ ] Predictive flood simulation engine
+- [ ] Kubernetes deployment configuration
+- [ ] User authentication and organization workspaces
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Commit your changes: `git commit -m "feat: add your feature"`
+4. Push to the branch: `git push origin feature/your-feature`
+5. Open a Pull Request
+
+---
+
+## 🔒 Security
+
+Found a vulnerability? See [SECURITY.md](SECURITY.md) for the responsible disclosure process.
+
+---
+
+## 📜 License
+
+Distributed under the **MIT License**. See [LICENSE](LICENSE) for details.
+
+---
+
+## 👤 Author
 
 **P. Harshith Reddy**
 
-- [GitHub](https://github.com/Harshithreddy-ux)
-- [LinkedIn](https://www.linkedin.com/in/p-harshith-reddy-679141333)
+[![GitHub](https://img.shields.io/badge/GitHub-Harshithreddy--ux-181717?style=flat-square&logo=github)](https://github.com/Harshithreddy-ux)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-P._Harshith_Reddy-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/p-harshith-reddy-679141333)
 
 ---
 
-# Support
+<div align="center">
 
-If you found this project useful,
+⭐ **Star this repository** if CivicMind AI helped you or inspired your work!
 
-⭐ Star the repository
-🍴 Fork the repository
-🤝 Contribute to CivicMind AI
+*Made with ❤️ using AI, GIS, and Smart City Intelligence*
 
----
-
-<p align="center">
-Made with ❤️ using AI, GIS and Smart City Intelligence
-</p>
+</div>
