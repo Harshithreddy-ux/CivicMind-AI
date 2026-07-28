@@ -1,8 +1,8 @@
 import sys
 from datetime import datetime
 from pathlib import Path
+import os
 
-import requests
 import streamlit as st
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -12,7 +12,7 @@ for path in (str(ROOT), str(FRONTEND_ROOT)):
     if path not in sys.path:
         sys.path.insert(0, path)
 
-from components.cards import get_weather_data
+from components.cards import get_weather_data, get_aqi
 from components.footer import render_footer
 from components.sidebar import show_sidebar
 from pages.home import render_home
@@ -25,47 +25,12 @@ from pages.reports import render_reports
 from pages.settings import render_settings
 from utils.dataset_service import load_all_datasets
 from components.branding import get_logo_src
-import threading
-import json
-import os
 
 logo_src = get_logo_src()
 LOGO_PATH = str(Path(__file__).resolve().parent.parent / "assets" / "logo.svg")
 
-BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
-
-# Thread-safe WebSocket Background Alert Listener
-def start_alert_listener():
-    import asyncio
-
-    async def ws_client():
-        import websockets
-        ws_url = BACKEND_URL.replace("http://", "ws://").replace("https://", "wss://")
-        uri = f"{ws_url}/ws/alerts"
-        while True:
-            try:
-                async with websockets.connect(uri) as websocket:
-                    while True:
-                        msg = await websocket.recv()
-                        data = json.loads(msg)
-                        if "alerts" not in st.session_state:
-                            st.session_state.alerts = []
-                        st.session_state.alerts.append(data)
-                        # NOTE: st.rerun() must NOT be called from a background
-                        # thread — it causes glitches. Alerts surface on next
-                        # natural user interaction rerun instead.
-            except Exception:
-                await asyncio.sleep(5)  # Reconnect cooldown
-
-    def run_loop(loop):
-        asyncio.set_event_loop(loop)
-        loop.run_until_complete(ws_client())
-
-    if "alert_listener_started" not in st.session_state:
-        st.session_state.alert_listener_started = True
-        loop = asyncio.new_event_loop()
-        t = threading.Thread(target=run_loop, args=(loop,), daemon=True)
-        t.start()
+# WebSocket alert listener removed — not supported on Streamlit Cloud.
+# Alerts surface via session_state on next rerun if backend is running locally.
 
 st.set_page_config(
     page_title="CivicMind AI",
@@ -85,40 +50,16 @@ def load_css():
         pass
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(ttl=300, show_spinner=False)
 def load_city_context(city: str):
-    weather = get_weather_data(city)
-    aqi = None
-    try:
-        response = requests.get(f"{BACKEND_URL}/aqi?city={city}", timeout=5)
-        if response.status_code == 200:
-            aqi = response.json()
-    except Exception:
-        try:
-            from backend.services.aqi_service import AQIAPI
-            import asyncio
-            asv = AQIAPI()
-            try:
-                loop = asyncio.get_event_loop()
-                aqi = loop.run_until_complete(asv.get_aqi(city))
-            except RuntimeError:
-                aqi = asyncio.run(asv.get_aqi(city))
-        except Exception:
-            pass
+    """Synchronous data loader — safe for Streamlit Cloud."""
+    weather = get_weather_data(city)  # sync via live_data.py
+    aqi     = get_aqi(city)           # sync via live_data.py
     return weather, aqi
 
 
 load_css()
 load_all_datasets()
-start_alert_listener()
-
-if "alerts" in st.session_state and st.session_state.alerts:
-    while st.session_state.alerts:
-        alert = st.session_state.alerts.pop(0)
-        st.toast(
-            f"🚨 LIVE ALERT [{alert['city'].upper()}]: {alert['sensor_type'].upper()} level is {alert['value']} {alert['unit']}",
-            icon="🚨"
-        )
 
 if "ui_ready" not in st.session_state:
     st.session_state.ui_ready = False
