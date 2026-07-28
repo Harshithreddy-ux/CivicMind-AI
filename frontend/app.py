@@ -43,8 +43,9 @@ st.set_option("client.showSidebarNavigation", False)
 
 
 def load_css():
+    css_path = Path(__file__).parent / "styles" / "style.css"
     try:
-        with open("frontend/styles/style.css", encoding="utf-8") as handle:
+        with open(css_path, encoding="utf-8") as handle:
             st.markdown(f"<style>{handle.read()}</style>", unsafe_allow_html=True)
     except Exception:
         pass
@@ -79,11 +80,13 @@ if not st.session_state.ui_ready:
     st.session_state.ui_ready = True
 
 selected_page, selected_city = show_sidebar()
-weather, aqi = load_city_context(selected_city)
 
-if "selected_city" not in st.session_state or st.session_state.selected_city != selected_city:
-    st.session_state.selected_city = selected_city
-    st.session_state.page_refresh = True
+# Clear cached data when city changes so live data refreshes immediately
+if st.session_state.get("_last_city") != selected_city:
+    load_city_context.clear()
+    st.session_state["_last_city"] = selected_city
+
+weather, aqi = load_city_context(selected_city)
 
 logo_html = f"<img src='{logo_src}' style='width:48px;height:48px;object-fit:contain;margin-right:12px;' />" if logo_src else "<div class='title-icon' style='width:48px;height:48px;font-size:1.5rem;background:linear-gradient(135deg,#5EE7FF,#8b5cf6);color:#fff;'>✦</div>"
 
