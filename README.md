@@ -16,12 +16,13 @@
 [![SQLite](https://img.shields.io/badge/SQLite-3-003B57?style=flat-square&logo=sqlite&logoColor=white)](https://sqlite.org)
 [![Gemini](https://img.shields.io/badge/Gemini-2.5_Flash-4285F4?style=flat-square&logo=google&logoColor=white)](https://ai.google.dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
+[![Medium](https://img.shields.io/badge/Medium-Engineering_Article-000000?style=flat-square&logo=medium&logoColor=white)](https://medium.com/@pujariharshithreddy/building-civicmind-ai-designing-a-multi-agent-decision-intelligence-platform-for-smart-cities-b24cad62d0c2)
 [![Last Commit](https://img.shields.io/github/last-commit/Harshithreddy-ux/CivicMind-AI?style=flat-square)](https://github.com/Harshithreddy-ux/CivicMind-AI/commits/main)
 [![Stars](https://img.shields.io/github/stars/Harshithreddy-ux/CivicMind-AI?style=flat-square)](https://github.com/Harshithreddy-ux/CivicMind-AI/stargazers)
 [![Forks](https://img.shields.io/github/forks/Harshithreddy-ux/CivicMind-AI?style=flat-square)](https://github.com/Harshithreddy-ux/CivicMind-AI/network/members)
 [![Issues](https://img.shields.io/github/issues/Harshithreddy-ux/CivicMind-AI?style=flat-square)](https://github.com/Harshithreddy-ux/CivicMind-AI/issues)
 
-**[Live Demo](https://civicmind-x8zrh8o23aahmfrymvd52j.streamlit.app) · [Report Bug](https://github.com/Harshithreddy-ux/CivicMind-AI/issues) · [Request Feature](https://github.com/Harshithreddy-ux/CivicMind-AI/issues)**
+**[🌐 Live Demo](https://civicmind-x8zrh8o23aahmfrymvd52j.streamlit.app) · [📖 Engineering Article](https://medium.com/@pujariharshithreddy/building-civicmind-ai-designing-a-multi-agent-decision-intelligence-platform-for-smart-cities-b24cad62d0c2) · [🐛 Report Bug](https://github.com/Harshithreddy-ux/CivicMind-AI/issues) · [✨ Request Feature](https://github.com/Harshithreddy-ux/CivicMind-AI/issues)**
 
 </div>
 
@@ -34,6 +35,16 @@ CivicMind AI is a production-oriented **Smart City Decision Intelligence Platfor
 Instead of a conventional monitoring dashboard, CivicMind AI uses a **Multi-Agent AI Architecture** — specialized Gemini-powered agents work in parallel to analyze weather, air quality, crime patterns, hospital capacity, and flood risk, before synthesizing a final actionable recommendation grounded against municipal Standard Operating Procedures.
 
 > **Built for Hack2Skill · Deployed on Streamlit Community Cloud · Open for contributions.**
+
+---
+
+## 🔗 Project Resources
+
+| Resource | Link |
+|---|---|
+| 🌐 **Live Demo** | [civicmind-x8zrh8o23aahmfrymvd52j.streamlit.app](https://civicmind-x8zrh8o23aahmfrymvd52j.streamlit.app) |
+| 💻 **Source Code** | [github.com/Harshithreddy-ux/CivicMind-AI](https://github.com/Harshithreddy-ux/CivicMind-AI) |
+| 📖 **Engineering Article** | [Building CivicMind AI — Medium](https://medium.com/@pujariharshithreddy/building-civicmind-ai-designing-a-multi-agent-decision-intelligence-platform-for-smart-cities-b24cad62d0c2) |
 
 ---
 
@@ -432,6 +443,25 @@ CivicMind-AI/
 - [ ] Predictive flood simulation engine
 - [ ] Kubernetes deployment configuration
 - [ ] User authentication and organisation workspaces
+
+---
+
+## 📖 Engineering Article
+
+A detailed technical deep-dive into the design decisions, multi-agent architecture, RAG pipeline, and Streamlit Cloud deployment challenges behind CivicMind AI — published on Medium.
+
+> **[Building CivicMind AI: Designing a Multi-Agent Decision Intelligence Platform for Smart Cities](https://medium.com/@pujariharshithreddy/building-civicmind-ai-designing-a-multi-agent-decision-intelligence-platform-for-smart-cities-b24cad62d0c2)**
+> *by P. Harshith Reddy · Medium Engineering*
+
+Topics covered in the article:
+
+- Why a multi-agent architecture instead of a monolithic AI pipeline
+- How the Supervisor/Coordinator pattern routes domain agents in parallel
+- Designing a RAG pipeline with FAISS over municipal SOP documents
+- Solving Streamlit Cloud async event-loop constraints with synchronous HTTPX
+- Lessons learned building and deploying an AI-powered civic intelligence platform
+
+[![Read on Medium](https://img.shields.io/badge/Read_on-Medium-000000?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@pujariharshithreddy/building-civicmind-ai-designing-a-multi-agent-decision-intelligence-platform-for-smart-cities-b24cad62d0c2)
 
 ---
 
